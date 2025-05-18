@@ -7,7 +7,7 @@ production_host = "moccasin-whippet-daisie-z5tdt5rq.bls.dev"
 permission = "public"
 nodes = 1
 permissions = [
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s"
+  "https://generativelanguage.googleapis.com/"
 ]
 
 [build]
