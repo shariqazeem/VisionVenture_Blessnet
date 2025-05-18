@@ -1,0 +1,28 @@
+name = "career-coach"
+version = "1.0.0"
+type = "web"
+production_host = "red-flyingfish-dollie-la7lrzui.bls.dev"
+
+[deployment]
+permission = "public"
+nodes = 1
+
+[build]
+dir = "build"
+entry = "debug.wasm"
+command = "npm run build:debug"
+
+[build_release]
+dir = "build"
+entry = "release.wasm"
+command = "npm run build:release"
+
+[[deployments]]
+name = "blessnet"
+description = ""
+cid = "bafybeifetwmu6okv6kiblwelfjckiqprvugztxdaxtzz7lcqzdla7lrzui"
+created = "2025-05-18T00:34:20.018Z"
+
+  [deployments.runtime]
+  url = "blessnet.tar.gz"
+  checksum = "046ff691894061b142ff6f066812b9aa582247ef9b16d29aa03b3bc704e956a6"

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Advice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+       :root {
+            --text-color: #ffffff;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent-color: #ff4081;
+            --accent-hover: #e91e63;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-top: 76px; /* Account for fixed navbar */
+        }
+        
+        .card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            background-color: var(--card-bg);
+            color: var(--card-text);
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-hover-color);
+            border-color: var(--accent-hover-color);
+        }
+        
+        .spinner-border {
+            display: none;
+            margin-left: 5px;
+        }
+        
+        .loading .spinner-border {
+            display: inline-block;
+        }
+        
+        .loading .btn-text {
+            display: none;
+        }
+        
+        .enhanced-text {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        
+        .enhanced-text strong {
+            color: var(--accent-color);
+        }
+        
+        .enhanced-text em {
+            color: var(--accent-hover-color);
+            font-style: italic;
+        }
+        
+        .enhanced-text ul, .enhanced-text ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .enhanced-text ul li, .enhanced-text ol li {
+            margin-bottom: 0.5rem;
+        }
+        /* Navigation styles */
+        .navbar {
+            background: rgba(0, 0, 0, 0.7) !important;
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1rem;
+        }
+        
+        .navbar-brand {
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        
+        .nav-link {
+            color: var(--text-color) !important;
+            margin: 0 5px;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+        
+        .dropdown-menu {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--accent-color);
+        }
+        
+        .dropdown-item {
+            color: var(--text-color);
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        /* Light mode styles */
+        body.light-mode {
+            --text-color: #212529;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --accent-color: #ff4081;
+            --accent-hover: #e91e63;
+        }
+        
+        body.light-mode .navbar {
+            background: rgba(248, 249, 250, 0.7) !important;
+        }
+        
+        body.light-mode .dropdown-menu {
+            background-color: rgba(248, 249, 250, 0.9);
+            border: 1px solid var(--accent-color);
+        }
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo2-removebg-preview.png" alt="VisionVenture" style="height: 50px;" onerror="this.src='https://placehold.co/200x50/ff4081/white?text=VisionVenture'">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <!-- Logged-in navigation items -->
+                    <li class="nav-item logged-in-nav">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item logged-in-nav">
+                        <a class="nav-link" href="career-pathway.html">
+                            <i class="fas fa-road"></i> Career Pathway
+                        </a>
+                    </li>
+                    <li class="nav-item logged-in-nav">
+                        <a class="nav-link" href="resume-advice.html">
+                            <i class="fas fa-file-alt"></i> Resume Advice
+                        </a>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown logged-in-nav">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileMenu" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i> <span class="username">User</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="profileMenu">
+                            <li><a class="dropdown-item" href="profile.html">
+                                    <i class="fas fa-user"></i> Account</a></li>
+                            <li><a class="dropdown-item" href="settings.html">
+                                    <i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="login.html" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Mode Switch Icon -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="modeSwitch" onclick="toggleMode()">
+                            <i class="fas fa-moon"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Upload Your Resume</h3>
+                <form id="resume-upload-form" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="resume" class="form-label">Resume File</label>
+                        <input type="file" class="form-control" id="resume" name="resume" accept=".pdf,.doc,.docx">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        <span class="btn-text">Get Advice</span>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    </button>
+                </form>
+                <div id="resume-advice" class="enhanced-text mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2025 Resume Helper. All rights reserved.</p>
+        </div>
+    </footer> -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Check login status and theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Set user as logged in
+    localStorage.setItem('isLoggedIn', 'true');
+    const username = localStorage.getItem('username') || 'User';
+    
+    // Update username in navbar
+    document.querySelectorAll('.username').forEach(el => {
+        el.textContent = username;
+    });
+    
+    // Show logged-in navigation items
+    document.querySelectorAll('.logged-in-nav').forEach(el => {
+        el.style.display = 'block';
+    });
+    
+    // Check and apply theme
+    const darkMode = localStorage.getItem('darkMode') !== 'false';
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+        document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-moon"></i>';
+    } else {
+        document.body.classList.add('light-mode');
+        document.body.classList.remove('dark-mode');
+        document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-sun"></i>';
+    }
+});
+
+// Toggle between light and dark mode
+function toggleMode() {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    if (isDarkMode) {
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
+        document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('darkMode', 'false');
+    } else {
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
+        document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('darkMode', 'true');
+    }
+}
+
+// Handle logout
+function logout() {
+    localStorage.setItem('isLoggedIn', 'false');
+}
+
+// Set loading state for buttons
+function setLoadingState(button, loading) {
+    if (loading) {
+        button.classList.add('loading');
+        button.disabled = true;
+    } else {
+        button.classList.remove('loading');
+        button.disabled = false;
+    }
+}
+
+// Format API response text
+function formatText(text) {
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    text = text.replace(/\n/g, '<br>');
+    text = text.replace(/- \[ \] (.*?)(?=\n|$)/g, '<ul><li>$1</li></ul>');
+    text = text.replace(/\d+\. (.*?)(?=\n|$)/g, '<ol><li>$1</li></ol>');
+    return text;
+}
+
+// Call Gemini API with user profile and resume file name
+async function callGeminiAPI(promptTemplate, elementId, button, fileName) {
+    setLoadingState(button, true);
+    const profile = JSON.parse(sessionStorage.getItem('userProfile'));
+    if (profile) {
+        const prompt = promptTemplate
+            .replace('${bio}', profile.bio || 'Not provided')
+            .replace('${skills}', profile.skills || 'Not provided')
+            .replace('${careerGoals}', profile.careerGoals || 'Not provided')
+            .replace('${fileName}', fileName || 'resume');
+        try {
+            const response = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: prompt }] }],
+                    }),
+                }
+            );
+            if (!response.ok) throw new Error('API request failed');
+            const data = await response.json();
+            const text = data.candidates[0].content.parts[0].text;
+            const formattedText = formatText(text);
+            document.getElementById(elementId).innerHTML = formattedText;
+            // Scroll to advice section
+            document.getElementById(elementId).scrollIntoView({ behavior: 'smooth' });
+        } catch (error) {
+            document.getElementById(elementId).innerHTML = '<p>Error loading advice. Please try again.</p>';
+            console.error('Error:', error);
+        } finally {
+            setLoadingState(button, false);
+        }
+    } else {
+        document.getElementById(elementId).innerHTML = '<p>Please complete your profile first.</p>';
+        setLoadingState(button, false);
+        document.getElementById(elementId).scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Handle resume upload form submission
+document.getElementById('resume-upload-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const fileInput = document.getElementById('resume');
+    const button = form.querySelector('button[type="submit"]');
+
+    if (!fileInput.files[0]) {
+        alert('Please select a resume file first.');
+        return;
+    }
+
+    const fileName = fileInput.files[0].name;
+    const promptTemplate = "Provide detailed resume improvement advice for a user with bio: '${bio}', skills: '${skills}', career goals: '${careerGoals}', and a resume named '${fileName}'. Suggest specific changes to structure, content, and formatting.";
+    callGeminiAPI(promptTemplate, 'resume-advice', button, fileName);
+});
+</script>
+</body>
+</html>
