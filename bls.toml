@@ -1,11 +1,14 @@
 name = "career-coach"
 version = "1.0.0"
 type = "web"
-production_host = "red-flyingfish-dollie-la7lrzui.bls.dev"
+production_host = "moccasin-whippet-daisie-z5tdt5rq.bls.dev"
 
 [deployment]
 permission = "public"
 nodes = 1
+permissions = [
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s"
+]
 
 [build]
 dir = "build"
@@ -20,9 +23,9 @@ command = "npm run build:release"
 [[deployments]]
 name = "blessnet"
 description = ""
-cid = "bafybeiawvpmpdua6dili6och44lymp7arkjedtgkr5hqrrqtweyzfzmode"
-created = "2025-05-18T01:24:17.088Z"
+cid = "bafybeie4x3q4q7dsfx7d6vtcx2og73xodrxz27hmz3t24tibjvz5tdt5rq"
+created = "2025-05-18T22:21:06.882Z"
 
   [deployments.runtime]
   url = "blessnet.tar.gz"
-  checksum = "360b5c899a1dc5fb4ae1c6d1f92611f2306ffc9bf8a27e196a54ef8f5c940a8b"
+  checksum = "55bea6f7e14a5904b960bdc4cb0d69108187ae7dca7eaec99a5fd5cba44e1a7e"
