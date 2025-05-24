@@ -2,6 +2,20 @@ import WebServer from '@blockless/sdk-ts/dist/lib/web';
 
 const server = new WebServer();
 
+// Add CORS middleware
+server.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  
+  next();
+});
+
 // Groq API configuration - hardcoded since process.env is not available
 const GROQ_API_KEY = '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';
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
@@ -9,6 +23,8 @@ const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 // Helper function to make direct HTTP calls to Groq API
 async function callGroqAPI(prompt, maxTokens = 1000) {
   try {
+    console.log('Making Groq API call with prompt:', prompt.substring(0, 100) + '...');
+    
     const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
@@ -29,11 +45,16 @@ async function callGroqAPI(prompt, maxTokens = 1000) {
       })
     });
 
+    console.log('Groq API response status:', response.status);
+
     if (!response.ok) {
-      throw new Error(`Groq API error: ${response.status} ${response.statusText}`);
+      const errorText = await response.text();
+      console.error('Groq API error response:', errorText);
+      throw new Error(`Groq API error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('Groq API response received successfully');
     
     return {
       success: true,
@@ -50,22 +71,41 @@ async function callGroqAPI(prompt, maxTokens = 1000) {
 
 // Career recommendations endpoint
 server.post('/api/career-recommendations', async (req, res) => {
-  const { bio, skills, careerGoals } = req.body;
-  
-  const prompt = `Generate detailed career recommendations for a user with bio: '${bio}', skills: '${skills}', and career goals: '${careerGoals}'. Include specific job roles and why they are suitable.`;
-  
-  const result = await callGroqAPI(prompt);
-  
-  if (result.success) {
-    res.json({ 
-      success: true, 
-      content: result.content 
-    });
-  } else {
+  try {
+    console.log('Career recommendations endpoint called');
+    console.log('Request body:', req.body);
+    
+    const { bio, skills, careerGoals } = req.body;
+    
+    if (!bio && !skills && !careerGoals) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Missing required fields: bio, skills, or careerGoals' 
+      });
+    }
+    
+    const prompt = `Generate detailed career recommendations for a user with bio: '${bio}', skills: '${skills}', and career goals: '${careerGoals}'. Include specific job roles and why they are suitable.`;
+    
+    const result = await callGroqAPI(prompt);
+    
+    if (result.success) {
+      res.json({ 
+        success: true, 
+        content: result.content 
+      });
+    } else {
+      res.status(500).json({ 
+        success: false, 
+        error: 'Failed to get career recommendations',
+        details: result.error
+      });
+    }
+  } catch (error) {
+    console.error('Career recommendations endpoint error:', error);
     res.status(500).json({ 
       success: false, 
-      error: 'Failed to get career recommendations',
-      details: result.error
+      error: 'Internal server error',
+      details: error.message
     });
   }
 });
