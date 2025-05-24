@@ -1,26 +1,14 @@
 import WebServer from '@blockless/sdk-ts/dist/lib/web';
-import handler from './gemini-handler.bls';
 
 const server = new WebServer();
 
 // Serve static files
 server.statics('public', '/');
 
-// Mount Gemini API route - return clean JSON only
+// Simple test endpoint first
 server.post('/api', async (input) => {
-  try {
-    // Call the handler with the input (no console.log to avoid polluting response)
-    const result = await handler(input);
-    
-    // Return clean JSON response
-    if (result.error) {
-      return JSON.stringify({ error: result.error });
-    } else {
-      return JSON.stringify({ text: result.text });
-    }
-  } catch (error) {
-    return JSON.stringify({ error: 'Internal server error' });
-  }
+  // Return a simple test response to see if this works
+  return '{"test": "Hello World", "input_received": true}';
 });
 
 server.start();
