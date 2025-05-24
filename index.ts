@@ -2,8 +2,8 @@ import WebServer from '@blockless/sdk-ts/dist/lib/web';
 
 const server = new WebServer();
 
-// Groq API configuration
-const GROQ_API_KEY = process.env.GROQ_API_KEY || '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';
+// Groq API configuration - hardcoded since process.env is not available
+const GROQ_API_KEY = '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';
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 // Helper function to make direct HTTP calls to Groq API
