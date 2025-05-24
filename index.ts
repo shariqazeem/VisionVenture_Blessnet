@@ -6,7 +6,7 @@ const server = new WebServer();
 // Serve static files
 server.statics('public', '/');
 
-// Mount Gemini API route - return proper JSON response
+// Alternative approach - return string directly
 server.post('/api', async (input) => {
   try {
     console.log('API called with input:', JSON.stringify(input, null, 2));
@@ -16,25 +16,15 @@ server.post('/api', async (input) => {
     
     console.log('Handler result:', JSON.stringify(result, null, 2));
     
-    // Ensure we return a proper JSON response
-    const response = {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(result.error ? { error: result.error } : { text: result.text }),
-      status: result.status || (result.error ? 500 : 200)
-    };
-    
-    return response;
+    // Return stringified JSON directly
+    if (result.error) {
+      return JSON.stringify({ error: result.error });
+    } else {
+      return JSON.stringify({ text: result.text });
+    }
   } catch (error) {
     console.error('Route error:', error);
-    return {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ error: 'Internal server error' }),
-      status: 500
-    };
+    return JSON.stringify({ error: 'Internal server error' });
   }
 });
 
