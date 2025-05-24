@@ -633,83 +633,75 @@
             text = text.replace(/\d+\. (.*?)(?=\n|$)/g, '<ol><li>$1</li></ol>');
             return text;
         }
-        // Call Groq API via your server routes
-        async function callGroqAPI(endpoint, elementId, button) {
-    setLoadingState(button, true);
-    const profile = JSON.parse(sessionStorage.getItem('userProfile'));
-    if (profile) {
-        console.log('Calling endpoint:', endpoint);
-        console.log('Profile data:', profile);
-        
-        try {
-            const requestBody = {
-                bio: profile.bio || 'Not provided',
-                skills: profile.skills || 'Not provided',
-                careerGoals: profile.careerGoals || 'Not provided'
-            };
-            
-            console.log('Request body:', requestBody);
-            
-            const response = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody),
-            });
-            
-            console.log('Response status:', response.status);
-            
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Server error response:', errorText);
-                throw new Error(`API request failed: ${response.status} - ${errorText}`);
-            }
-            
-            const data = await response.json();
-            console.log('Response data:', data);
-            
-            if (data.success) {
-                const formattedText = formatText(data.content);
-                document.getElementById(elementId).innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
+
+        // Call Gemini API with user profile
+        async function callGroqAPI(promptTemplate, elementId, button) {
+            setLoadingState(button, true);
+            const profile = JSON.parse(sessionStorage.getItem('userProfile'));
+
+            if (profile) {
+                const prompt = promptTemplate
+                    .replace('${bio}', profile.bio || 'Not provided')
+                    .replace('${skills}', profile.skills || 'Not provided')
+                    .replace('${careerGoals}', profile.careerGoals || 'Not provided');
+
+                try {
+                    const response = await fetch('/api/groq', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt })
+                    });
+
+                    if (!response.ok) throw new Error('Groq API request failed');
+                    const data = await response.json();
+                    const formattedText = formatText(data.text);
+                    document.getElementById(elementId).innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
+                } catch (error) {
+                    document.getElementById(elementId).innerHTML = '<p>Error loading data. Please try again.</p>';
+                    console.error('Groq error:', error);
+                } finally {
+                    setLoadingState(button, false);
+                }
             } else {
-                throw new Error(data.error || 'API call failed');
+                document.getElementById(elementId).innerHTML = '<p>Please complete your profile first.</p>';
+                setLoadingState(button, false);
             }
-        } catch (error) {
-            document.getElementById(elementId).innerHTML = `<p>Error loading data: ${error.message}. Please try again.</p>`;
-            console.error('Error:', error);
-        } finally {
-            setLoadingState(button, false);
         }
-    } else {
-        document.getElementById(elementId).innerHTML = '<p>Please complete your profile first.</p>';
-        setLoadingState(button, false);
-    }
-}
+
 
         // Main event listeners
         document.addEventListener('DOMContentLoaded', function () {
-            // Button event listeners for Groq API calls via server routes
+            // Button event listeners for Gemini API calls
             document.getElementById('get-career-recommendations-btn').addEventListener('click', function () {
-                callGroqAPI('/api/career-recommendations', 'career-recommendations', this);
+                const promptTemplate = "Generate career recommendations for bio: '${bio}', skills: '${skills}', goals: '${careerGoals}'.";
+                callGroqAPI(promptTemplate, 'career-recommendations', this);
             });
 
             document.getElementById('get-job-prospects-btn').addEventListener('click', function () {
-                callGroqAPI('/api/job-prospects', 'job-prospects', this);
+                const promptTemplate = "Provide job prospects and market outlook for a user with skills: '${skills}' and career goals: '${careerGoals}'. Highlight growth areas and competitive advantages.";
+                callGroqAPI(promptTemplate, 'job-prospects', this);
             });
 
             document.getElementById('assess-skills-btn').addEventListener('click', function () {
-                callGroqAPI('/api/assess-skills', 'skill-assessment', this);
+                const promptTemplate = "Assess the skills of a user with skills: '${skills}' and suggest specific areas for improvement to align with career goals: '${careerGoals}'.";
+                callGroqAPI(promptTemplate, 'skill-assessment', this);
             });
 
             document.getElementById('match-jobs-btn').addEventListener('click', function () {
-                callGroqAPI('/api/match-jobs', 'matched-jobs', this);
+                const promptTemplate = "Match job opportunities for a user with bio: '${bio}', skills: '${skills}', and career goals: '${careerGoals}'. Provide job titles, required skills, and match strength.";
+                callGroqAPI(promptTemplate, 'matched-jobs', this);
             });
 
             document.getElementById('get-learning-resources-btn').addEventListener('click', function () {
-                callGroqAPI('/api/learning-resources', 'learning-resources', this);
+
+
+                const promptTemplate = "Recommend learning resources (courses, books, communities) for a user with skills: '${skills}' and career goals: '${careerGoals}'.";
+                callGroqAPI(promptTemplate, 'learning-resources', this);
             });
 
             document.getElementById('find-networking-opportunities-btn').addEventListener('click', function () {
-                callGroqAPI('/api/networking-opportunities', 'networking-opportunities', this);
+                const promptTemplate = "Suggest networking opportunities (events, online communities, organizations) for a user with bio: '${bio}' and career goals: '${careerGoals}'.";
+                callGroqAPI(promptTemplate, 'networking-opportunities', this);
             });
 
             // Smooth scroll for sidebar links
@@ -765,55 +757,57 @@
 
     <!-- after your Chart.js & Bootstrap `<script>` tags -->
 
-<script>
-    // 1) Chart‐updater (unchanged)
-    function updateSkillAssessmentChart(skillData) {
-      const ctx = document.getElementById('skillAssessmentChart').getContext('2d');
-      if (window.skillChart) window.skillChart.destroy();
+    <script>
+        // 1) Chart‐updater (unchanged)
+        function updateSkillAssessmentChart(skillData) {
+            const ctx = document.getElementById('skillAssessmentChart').getContext('2d');
+            if (window.skillChart) window.skillChart.destroy();
 
-      const labels = skillData.labels;
-      const data   = skillData.data;
-      const bg = labels.map((_,i)=>
-        `hsla(${(i*360/labels.length)},70%,60%,0.2)`);
-      const bd = labels.map((_,i)=>
-        `hsla(${(i*360/labels.length)},70%,50%,1)`);
+            const labels = skillData.labels;
+            const data = skillData.data;
+            const bg = labels.map((_, i) =>
+                `hsla(${(i * 360 / labels.length)},70%,60%,0.2)`);
+            const bd = labels.map((_, i) =>
+                `hsla(${(i * 360 / labels.length)},70%,50%,1)`);
 
-      window.skillChart = new Chart(ctx, {
-        type: 'bar',
-        data: { labels, datasets:[{
-          label: 'Skill Assessment',
-          data, backgroundColor:bg, borderColor:bd, borderWidth:1
-        }]},
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 3,
-              ticks: {
-                stepSize: 1,
-                callback: v => ['', 'Beginner','Intermediate','Advanced'][v] || ''
-              }
-            }
-          },
-          plugins: { legend:{display:false} }
+            window.skillChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels, datasets: [{
+                        label: 'Skill Assessment',
+                        data, backgroundColor: bg, borderColor: bd, borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 3,
+                            ticks: {
+                                stepSize: 1,
+                                callback: v => ['', 'Beginner', 'Intermediate', 'Advanced'][v] || ''
+                            }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
         }
-      });
-    }
 
-    // 2) Fetch & parse JSON from Gemini, then update chart
-    async function getSkillAssessment(button) {
-      button.disabled = true;
-      // pull the real user profile
-      const profile = JSON.parse(sessionStorage.getItem('userProfile') || '{}');
-      if (!profile.bio) {
-        console.warn('No profile found—using fallback.');
-        profile.bio = 'Experienced professional';
-        profile.skills = 'Adaptability, Communication';
-        profile.careerGoals = 'Grow leadership skills';
-      }
+        // 2) Fetch & parse JSON from Gemini, then update chart
+        async function getSkillAssessment(button) {
+            button.disabled = true;
+            // pull the real user profile
+            const profile = JSON.parse(sessionStorage.getItem('userProfile') || '{}');
+            if (!profile.bio) {
+                console.warn('No profile found—using fallback.');
+                profile.bio = 'Experienced professional';
+                profile.skills = 'Adaptability, Communication';
+                profile.careerGoals = 'Grow leadership skills';
+            }
 
-      // craft a prompt that returns ONLY the JSON
-      const prompt = `
+            // craft a prompt that returns ONLY the JSON
+            const prompt = `
 Based on this user profile, extract up to five key skills
 and rate each on a scale 1=Beginner,2=Intermediate,3=Advanced.
 Return *only* a JSON object:
@@ -824,42 +818,41 @@ Skills: "${profile.skills}"
 Career goals: "${profile.careerGoals}"
       `.trim();
 
-      try {
-        const response = await fetch('/api/skill-chart-data', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    bio: profile.bio || 'Not provided',
-                    skills: profile.skills || 'Not provided',
-                    careerGoals: profile.careerGoals || 'Not provided'
-                }),
+            try {
+                const resp = await fetch(
+                    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s',
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                    }
+                );
+                const jsn = await resp.json();
+                const txt = jsn.candidates[0].content.parts[0].text;
+                const match = txt.match(/(\{[\s\S]*\})/);
+                const skillData = match ? JSON.parse(match[0]) : { labels: [], data: [] };
+                updateSkillAssessmentChart(skillData);
+            } catch (err) {
+                console.error('Skill API error', err);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        // 3) On load, draw a placeholder chart *and* immediately call Gemini
+        document.addEventListener('DOMContentLoaded', () => {
+            // show a simple default chart while we fetch real data
+            updateSkillAssessmentChart({
+                labels: ['Loading…'], data: [0]
             });
-        const jsn = await resp.json();
-        const txt = jsn.candidates[0].content.parts[0].text;
-        const match = txt.match(/(\{[\s\S]*\})/);
-        const skillData = match ? JSON.parse(match[0]) : { labels:[], data:[] };
-        updateSkillAssessmentChart(skillData);
-      } catch(err) {
-        console.error('Skill API error', err);
-      } finally {
-        button.disabled = false;
-      }
-    }
 
-    // 3) On load, draw a placeholder chart *and* immediately call Gemini
-    document.addEventListener('DOMContentLoaded', () => {
-      // show a simple default chart while we fetch real data
-      updateSkillAssessmentChart({
-        labels: ['Loading…'], data: [0]
-      });
-
-      const btn = document.getElementById('assess-skills-btn');
-      // initial fetch
-      getSkillAssessment(btn);
-      // allow user to re‑run on click
-      btn.addEventListener('click', () => getSkillAssessment(btn));
-    });
-  </script> 
+            const btn = document.getElementById('assess-skills-btn');
+            // initial fetch
+            getSkillAssessment(btn);
+            // allow user to re‑run on click
+            btn.addEventListener('click', () => getSkillAssessment(btn));
+        });
+    </script>
 
 
 </body>
