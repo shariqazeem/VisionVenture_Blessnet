@@ -17,8 +17,9 @@ server.use((req, res, next) => {
 });
 
 // Groq API configuration - hardcoded since process.env is not available
-const GROQ_API_KEY = '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';
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_API_KEY = 'AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s';
+const GROQ_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GROQ_API_KEY}`;
+
 
 // Helper function to make direct HTTP calls to Groq API
 async function callGroqAPI(prompt, maxTokens = 1000) {

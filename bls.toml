@@ -7,7 +7,7 @@ production_host = "moccasin-whippet-daisie-z5tdt5rq.bls.dev"
 permission = "public"
 nodes = 1
 permissions = [
-  "https://api.groq.com/openai/v1/chat/completions"
+  "https://generativelanguage.googleapis.com/"
 ]
 
 [build]
