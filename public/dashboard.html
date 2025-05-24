@@ -1,52 +1,852 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Server Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        /* ==== THEME VARIABLES ==== */
+        :root {
+            --text-color: #ffffff;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --accent-color: #ff4081;
+            --accent-hover: #e91e63;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-top: 56px;
+            /* fixed navbar */
+        }
+
+        /* Light mode overrides */
+        body.light-mode {
+            --text-color: #212529;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --accent-color: #ff4081;
+            --accent-hover: #e91e63;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(0, 0, 0, 0.7) !important;
+            backdrop-filter: blur(10px);
+        }
+
+        body.light-mode .navbar {
+            background: rgba(248, 249, 250, 0.7) !important;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+        }
+
+        .body.light-mode .nav-link {
+            color: var(--text-color) !important;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+
+        .dropdown-menu {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--accent-color);
+        }
+
+        body.light-mode .dropdown-menu {
+            background-color: rgba(248, 249, 250, 0.9);
+            border: 1px solid var(--accent-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+        }
+
+        body.light-mode .sidebar {
+            background: rgba(248, 249, 250, 0.7);
+        }
+
+        .sidebar a {
+            color: var(--text-color);
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        /* Content */
+        .content {
+            margin-left: 250px;
+            padding: 2rem;
+            background: var(--bg-color);
+            min-height: calc(100vh - 56px);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        /* Profile Overlay */
+        .profile-picture-overlay {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+        }
+
+        /* Fade-in */
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+
+        .spinner-border {
+            display: none;
+            margin-left: 5px;
+        }
+
+        .loading .spinner-border {
+            display: inline-block;
+        }
+
+        .loading .btn-text {
+            display: none;
+        }
+
+        .profile-section {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .profile-picture-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .profile-picture {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-picture-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .profile-picture-wrapper:hover .profile-picture-overlay {
+            opacity: 1;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .username {
+            word-break: break-word;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .content {
+                margin-left: 0;
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .profile-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-picture-wrapper {
+                width: 60px;
+                height: 60px;
+            }
+
+            .profile-actions {
+                margin-top: 10px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        /* Light mode styles */
+        body.light-mode {
+            --sidebar-bg: #f8f9fa;
+            --sidebar-text: #212529;
+            --sidebar-hover-bg: #e9ecef;
+            --sidebar-hover-text: #212529;
+            --content-bg: #ffffff;
+            --content-text: #212529;
+            --card-bg: #ffffff;
+            --card-text: #212529;
+            --accent-color: #ff4081;
+            --accent-hover-color: #e91e63;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            --sidebar-bg: #2c2f33;
+            --sidebar-text: #ffffff;
+            --sidebar-hover-bg: #ff4081;
+            --sidebar-hover-text: #ffffff;
+            --content-bg: #171c28;
+            --content-text: #ffffff;
+            --card-bg: #2c2f33;
+            --card-text: #ffffff;
+            --accent-color: #ff4081;
+            --accent-hover-color: #e91e63;
+        }
+
+        /* Enhanced Text Styles */
+        .enhanced-text {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .enhanced-text strong {
+            color: var(--accent-color);
+        }
+
+        .enhanced-text em {
+            color: var(--accent-hover-color);
+            font-style: italic;
+        }
+
+        .enhanced-text ul,
+        .enhanced-text ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .enhanced-text ul li,
+        .enhanced-text ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background-color: var(--accent-color);
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 2rem;
+            background-color: #f1f1f1;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .rating-stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .rating-stars input {
+            display: none;
+        }
+
+        .rating-stars label {
+            display: block;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            background: url('https://img.icons8.com/ios-glyphs/30/000000/star--v1.png') no-repeat;
+            background-size: contain;
+        }
+
+        .rating-stars input:checked~label,
+        .rating-stars label:hover,
+        .rating-stars label:hover~label {
+            background: url('https://img.icons8.com/ios-glyphs/30/ff4081/star--v1.png') no-repeat;
+            background-size: contain;
+        }
+    </style>
 </head>
-<body>
-    <h1>Server Connection Test</h1>
-    <button onclick="testAPI()">Test API</button>
-    <button onclick="testGET()">Test GET</button>
-    <div id="result"></div>
+
+<body class="dark-mode">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="logo2-removebg-preview.png" alt="VisionVenture" style="width: 100%;
+  height: 60px;
+  object-fit: cover;
+   overflow: hidden; display: block; margin: auto;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <!-- Logged-in navigation items -->
+                    <li class="nav-item logged-in-nav">
+                        <a class="nav-link" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item logged-in-nav">
+                        <a class="nav-link" href="career-pathway.html">
+                            <i class="fas fa-road"></i> Career Pathway
+                        </a>
+                    </li>
+                    <li class="nav-item logged-in-nav">
+                        <a class="nav-link" href="resume-advice.html">
+                            <i class="fas fa-file-alt"></i> Resume Advice
+                        </a>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown logged-in-nav">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileMenu" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i> <span class="username">User</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="profileMenu">
+                            <li><a class="dropdown-item" href="profile.html">
+                                    <i class="fas fa-user"></i> Account</a></li>
+                            <li><a class="dropdown-item" href="settings.html">
+                                    <i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="login.html" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item logged-in-nav">
+                        <a class="nav-link" href="step1.html">
+                            <i class="fas fa-road"></i> Complete Profile
+                        </a>
+                    </li>
+                    <!-- Logged-out navigation items -->
+                    <!-- <li class="nav-item logged-out-nav">
+                        <a class="nav-link" href="login.html">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item logged-out-nav">
+                        <a class="nav-link" href="signup.html">
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        </a>
+                    </li> -->
+                    <!-- Mode Switch Icon -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="modeSwitch" onclick="toggleMode()">
+                            <i class="fas fa-moon"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="react-root"></div>
+
+    <div class="dashboard-container">
+        <div class="sidebar fade-in">
+            <!-- <h2 class="text-center mode-dependent-text">VisionVenture</h2> -->
+            <a href="#career-recommendations-section"><i class="fas fa-bullseye"></i> Career Recommendations</a>
+            <a href="#job-prospects-section"><i class="fas fa-briefcase"></i> Job Prospects</a>
+            <a href="#assess-skills-section"><i class="fas fa-chart-bar"></i> Assess Skills</a>
+            <a href="#match-jobs-section"><i class="fas fa-handshake"></i> Match Jobs</a>
+            <a href="#learning-resources-section"><i class="fas fa-book"></i> Learning Resources</a>
+            <a href="#networking-opportunities-section"><i class="fas fa-users"></i> Networking Opportunities</a>
+            <!-- <a href="logout.html"><i class="fas fa-sign-out-alt"></i> Logout</a> -->
+        </div>
+        <div class="content fade-in">
+            <div class="card fade-in">
+                <div class="card-body">
+                    <div class="profile-section d-flex align-items-center flex-wrap justify-content-center">
+                        <div class="profile-picture-wrapper">
+                            <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-glasses_23-2149436191.jpg?w=740&t=st=1721942794~exp=1721943394~hmac=c084dd6d7ff19f68befc1bcd55805caf988acf278233869cb1f4f9b05a9ab373"
+                                alt="Profile Picture" class="profile-picture">
+                            <div class="profile-picture-overlay">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <input type="file" id="profilePictureInput" class="d-none">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="skill-assessment-section" class="card fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mode-dependent-text">Skill Assessment</h3>
+                    <canvas id="skillAssessmentChart" width="200" height="100"></canvas>
+                </div>
+            </div>
+
+            <!-- Career Recommendations -->
+            <div id="career-recommendations-section" class="card fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mode-dependent-text">Career Recommendations</h3>
+                    <button id="get-career-recommendations-btn" class="btn btn-primary w-100 mb-3">
+                        <span class="btn-text">Get Recommendations</span>
+                        <span class="spinner-border" role="status" aria-hidden="true"></span>
+                    </button>
+                    <div id="career-recommendations" class="enhanced-text mt-4"></div>
+                </div>
+            </div>
+            <div id="job-prospects-section" class="card fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mode-dependent-text">Job Prospects</h3>
+                    <button id="get-job-prospects-btn" class="btn btn-primary w-100 mb-3">
+                        <span class="btn-text">Get Job Prospects</span>
+                        <span class="spinner-border" role="status" aria-hidden="true"></span>
+                    </button>
+                    <div id="job-prospects" class="enhanced-text mt-4"></div>
+                </div>
+            </div>
+            <div id="assess-skills-section" class="card fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mode-dependent-text">Assess Skills</h3>
+                    <button id="assess-skills-btn" class="btn btn-primary w-100 mb-3">
+                        <span class="btn-text">Assess Skills</span>
+                        <span class="spinner-border" role="status" aria-hidden="true"></span>
+                    </button>
+                    <div id="skill-assessment" class="enhanced-text mt-4"></div>
+                </div>
+            </div>
+            <div id="match-jobs-section" class="card fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mode-dependent-text">Match Jobs</h3>
+                    <button id="match-jobs-btn" class="btn btn-primary w-100 mb-3">
+                        <span class="btn-text">Match Jobs</span>
+                        <span class="spinner-border" role="status" aria-hidden="true"></span>
+                    </button>
+                    <div id="matched-jobs" class="enhanced-text mt-4"></div>
+                </div>
+            </div>
+            <div id="learning-resources-section" class="card fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mode-dependent-text">Learning Resources</h3>
+                    <button id="get-learning-resources-btn" class="btn btn-primary w-100 mb-3">
+                        <span class="btn-text">Get Resources</span>
+                        <span class="spinner-border" role="status" aria-hidden="true"></span>
+                    </button>
+                    <div id="learning-resources" class="enhanced-text mt-4"></div>
+                </div>
+            </div>
+            <div id="networking-opportunities-section" class="card fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mode-dependent-text">Networking Opportunities</h3>
+                    <button id="find-networking-opportunities-btn" class="btn btn-primary w-100 mb-3">
+                        <span class="btn-text">Find Opportunities</span>
+                        <span class="spinner-border" role="status" aria-hidden="true"></span>
+                    </button>
+                    <div id="networking-opportunities" class="enhanced-text mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        async function testAPI() {
-            console.log('Testing API...');
-            try {
-                const response = await fetch('/api', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ test: 'data' })
-                });
-                
-                console.log('Response status:', response.status);
-                console.log('Response ok:', response.ok);
-                
-                const text = await response.text();
-                console.log('Response text:', text);
-                
-                document.getElementById('result').innerHTML = `<p>API Response: ${text}</p>`;
-            } catch (error) {
-                console.error('API Error:', error);
-                document.getElementById('result').innerHTML = `<p>API Error: ${error.message}</p>`;
+
+        // Check login status on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set user as logged in for dashboard page
+            localStorage.setItem('isLoggedIn', 'true');
+            const username = localStorage.getItem('username') || 'User';
+
+            // Update username display in navbar and profile
+            document.querySelectorAll('.username').forEach(el => {
+                el.textContent = username;
+            });
+
+            // Show logged-in navigation items
+            document.querySelectorAll('.logged-in-nav').forEach(el => {
+                el.style.display = 'block';
+            });
+            document.querySelectorAll('.logged-out-nav').forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Check and apply theme
+            const darkMode = localStorage.getItem('darkMode') !== 'false';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('light-mode');
+                document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                document.body.classList.add('light-mode');
+                document.body.classList.remove('dark-mode');
+                document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        // Toggle between light and dark mode
+        function toggleMode() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            if (isDarkMode) {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'false');
+            } else {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                document.getElementById('modeSwitch').innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'true');
             }
         }
 
-        async function testGET() {
-            console.log('Testing GET...');
-            try {
-                const response = await fetch('/test');
-                console.log('GET Response status:', response.status);
-                
-                const text = await response.text();
-                console.log('GET Response text:', text);
-                
-                document.getElementById('result').innerHTML = `<p>GET Response: ${text}</p>`;
-            } catch (error) {
-                console.error('GET Error:', error);
-                document.getElementById('result').innerHTML = `<p>GET Error: ${error.message}</p>`;
+        // Handle logout
+        function logout() {
+            localStorage.setItem('isLoggedIn', 'false');
+        }
+
+        // Set loading state for buttons
+        function setLoadingState(button, loading) {
+            const cardBody = button.closest('.card-body');
+            if (loading) {
+                button.classList.add('loading');
+                cardBody.closest('.card').classList.add('loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('loading');
+                cardBody.closest('.card').classList.remove('loading');
+                button.disabled = false;
             }
         }
+
+        // Format API response text
+        function formatText(text) {
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            text = text.replace(/\n/g, '<br>');
+            text = text.replace(/- \[ \] (.*?)(?=\n|$)/g, '<ul><li>$1</li></ul>');
+            text = text.replace(/\d+\. (.*?)(?=\n|$)/g, '<ol><li>$1</li></ol>');
+            return text;
+        }
+
+        async function callGeminiAPI(promptType, elementId, button) {
+            setLoadingState(button, true);
+            const profile = JSON.parse(sessionStorage.getItem('userProfile'));
+            if (!profile) {
+                document.getElementById(elementId).innerHTML = '<p>Please complete your profile first.</p>';
+                setLoadingState(button, false);
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        bio: profile.bio || 'Not provided',
+                        skills: profile.skills || 'Not provided',
+                        careerGoals: profile.careerGoals || 'Not provided',
+                        promptType: promptType
+                    })
+                });
+
+                const result = await response.json();
+                if (result.error) throw new Error(result.error);
+
+                const formattedText = formatText(result.text);
+                document.getElementById(elementId).innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
+            } catch (error) {
+                document.getElementById(elementId).innerHTML = '<p>Error loading data. Please try again.</p>';
+                console.error('Error:', error);
+            } finally {
+                setLoadingState(button, false);
+            }
+        }
+
+        // Main event listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Button event listeners for Gemini API calls
+            document.getElementById('get-career-recommendations-btn').addEventListener('click', function () {
+                callGeminiAPI('career-recommendations', 'career-recommendations', this);
+            });
+
+            document.getElementById('get-job-prospects-btn').addEventListener('click', function () {
+                callGeminiAPI('job-prospects', 'job-prospects', this);
+            });
+
+            document.getElementById('assess-skills-btn').addEventListener('click', function () {
+                callGeminiAPI('assess-skills', 'skill-assessment', this);
+            });
+
+            document.getElementById('match-jobs-btn').addEventListener('click', function () {
+                callGeminiAPI('match-jobs', 'matched-jobs', this);
+            });
+
+            document.getElementById('get-learning-resources-btn').addEventListener('click', function () {
+                callGeminiAPI('learning-resources', 'learning-resources', this);
+            });
+
+            document.getElementById('find-networking-opportunities-btn').addEventListener('click', function () {
+                callGeminiAPI('networking-opportunities', 'networking-opportunities', this);
+            });
+
+
+            // Smooth scroll for sidebar links
+            document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+
+            // Initialize default chart on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                // Default data to show initially
+                const defaultData = {
+                    labels: ['JavaScript', 'HTML/CSS', 'React', 'Node.js', 'Python'],
+                    data: [2, 3, 2, 1, 1]
+                };
+
+                // Create chart with default data
+                updateSkillAssessmentChart(defaultData);
+
+                // Add event listener for assess-skills-btn
+                document.getElementById('assess-skills-btn').addEventListener('click', function () {
+                    getSkillAssessment(this);
+                });
+            });
+
+            // Change profile picture on file input change
+            const profilePictureInput = document.getElementById('profilePictureInput');
+            const profilePictureWrapper = document.querySelector('.profile-picture-wrapper');
+            const profilePicture = document.querySelector('.profile-picture');
+
+            profilePictureWrapper.addEventListener('click', () => {
+                profilePictureInput.click();
+            });
+
+            profilePictureInput.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        profilePicture.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
     </script>
+    <!-- Include Chart.js first -->
+
+    <!-- after your Chart.js & Bootstrap `<script>` tags -->
+
+    <script>
+        // 1) Chart‐updater (unchanged)
+        function updateSkillAssessmentChart(skillData) {
+            const ctx = document.getElementById('skillAssessmentChart').getContext('2d');
+            if (window.skillChart) window.skillChart.destroy();
+
+            const labels = skillData.labels;
+            const data = skillData.data;
+            const bg = labels.map((_, i) =>
+                `hsla(${(i * 360 / labels.length)},70%,60%,0.2)`);
+            const bd = labels.map((_, i) =>
+                `hsla(${(i * 360 / labels.length)},70%,50%,1)`);
+
+            window.skillChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels, datasets: [{
+                        label: 'Skill Assessment',
+                        data, backgroundColor: bg, borderColor: bd, borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 3,
+                            ticks: {
+                                stepSize: 1,
+                                callback: v => ['', 'Beginner', 'Intermediate', 'Advanced'][v] || ''
+                            }
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // 2) Fetch & parse JSON from Gemini, then update chart
+        async function getSkillAssessment(button) {
+            button.disabled = true;
+            // pull the real user profile
+            const profile = JSON.parse(sessionStorage.getItem('userProfile') || '{}');
+            if (!profile.bio) {
+                console.warn('No profile found—using fallback.');
+                profile.bio = 'Experienced professional';
+                profile.skills = 'Adaptability, Communication';
+                profile.careerGoals = 'Grow leadership skills';
+            }
+
+            // craft a prompt that returns ONLY the JSON
+            const prompt = `
+Based on this user profile, extract up to five key skills
+and rate each on a scale 1=Beginner,2=Intermediate,3=Advanced.
+Return *only* a JSON object:
+{"labels":[skill1,skill2…],"data":[rating1,rating2…]}
+
+User bio: "${profile.bio}"
+Skills: "${profile.skills}"
+Career goals: "${profile.careerGoals}"
+      `.trim();
+
+            try {
+                const resp = await fetch(
+                    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s',
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                    }
+                );
+                const jsn = await resp.json();
+                const txt = jsn.candidates[0].content.parts[0].text;
+                const match = txt.match(/(\{[\s\S]*\})/);
+                const skillData = match ? JSON.parse(match[0]) : { labels: [], data: [] };
+                updateSkillAssessmentChart(skillData);
+            } catch (err) {
+                console.error('Skill API error', err);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        // 3) On load, draw a placeholder chart *and* immediately call Gemini
+        document.addEventListener('DOMContentLoaded', () => {
+            // show a simple default chart while we fetch real data
+            updateSkillAssessmentChart({
+                labels: ['Loading…'], data: [0]
+            });
+
+            const btn = document.getElementById('assess-skills-btn');
+            // initial fetch
+            getSkillAssessment(btn);
+            // allow user to re‑run on click
+            btn.addEventListener('click', () => getSkillAssessment(btn));
+        });
+    </script>
+
+
 </body>
+
 </html>
