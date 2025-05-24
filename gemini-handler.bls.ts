@@ -1,13 +1,10 @@
 // gemini-handler.bls.ts
 export default async function handler(input: any) {
   try {
-    console.log('Handler input:', input);
-    
-    // Handle different input structures from Blockless
+    // Handle the input structure from Blockless
     let requestData;
     if (input.body) {
-      // If body is a string, parse it
-      requestData = typeof input.body === 'string' ? JSON.parse(input.body) : input.body;
+      requestData = input.body;
     } else if (input.args) {
       requestData = input.args;
     } else {
@@ -35,12 +32,12 @@ export default async function handler(input: any) {
 
     const prompt = prompts[promptType] || prompts["career-recommendations"];
 
-    // Replace YOUR_API_KEY with your actual API key
-    const API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s';
+    // Use a hardcoded API key for now (replace with your actual key)
+    const API_KEY = 'AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s';
     
-    if (API_KEY === 'AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s' || !API_KEY) {
+    if (API_KEY === 'AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s') {
       return {
-        error: 'Gemini API key not configured',
+        error: 'Gemini API key not configured. Please set your API key in the handler.',
         status: 500
       };
     }
@@ -58,7 +55,6 @@ export default async function handler(input: any) {
 
     // Check if the response is ok
     if (!response.ok) {
-      console.error('Gemini API error:', response.status, response.statusText);
       return {
         error: `Gemini API error: ${response.status} ${response.statusText}`,
         status: response.status
@@ -69,7 +65,6 @@ export default async function handler(input: any) {
     
     // Check if the response has the expected structure
     if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-      console.error('Unexpected Gemini API response structure:', data);
       return {
         error: 'Unexpected response from Gemini API',
         status: 500
@@ -84,7 +79,6 @@ export default async function handler(input: any) {
     };
 
   } catch (error) {
-    console.error('Handler error:', error);
     return {
       error: `Server error: ${error.message}`,
       status: 500
