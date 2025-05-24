@@ -655,20 +655,48 @@
                     })
                 });
 
+                // Check if response is ok first
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
+                // Check content type
                 const contentType = response.headers.get("content-type");
                 if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error('Invalid response from server');
+                    const textResponse = await response.text();
+                    console.error('Non-JSON response:', textResponse);
+                    throw new Error('Server returned non-JSON response');
                 }
 
                 const result = await response.json();
-                if (result.error) throw new Error(result.error);
+
+                // Check for error in the JSON response
+                if (result.error) {
+                    throw new Error(result.error);
+                }
+
+                // Check if we have text content
+                if (!result.text) {
+                    throw new Error('No content received from server');
+                }
 
                 const formattedText = formatText(result.text);
                 document.getElementById(elementId).innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
+
             } catch (error) {
-                document.getElementById(elementId).innerHTML = '<p>Error loading data. Please try again.</p>';
-                console.error('Error:', error);
+                console.error('API Error:', error);
+                let errorMessage = 'Error loading data. Please try again.';
+
+                // Provide more specific error messages
+                if (error.message.includes('Failed to fetch')) {
+                    errorMessage = 'Network error. Please check your connection and try again.';
+                } else if (error.message.includes('HTTP error')) {
+                    errorMessage = 'Server error. Please try again later.';
+                } else if (error.message.includes('API key')) {
+                    errorMessage = 'Service configuration error. Please contact support.';
+                }
+
+                document.getElementById(elementId).innerHTML = `<p>${errorMessage}</p>`;
             } finally {
                 setLoadingState(button, false);
             }
