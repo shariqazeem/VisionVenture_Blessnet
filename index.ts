@@ -1,5 +1,5 @@
 import WebServer from '@blockless/sdk-ts/dist/lib/web';
-import { handler as geminiHandler } from './gemini-handler.bls'; // Import your handler
+import handler from './gemini-handler.bls';
 
 const server = new WebServer();
 
@@ -7,6 +7,6 @@ const server = new WebServer();
 server.statics('public', '/');
 
 // Mount Gemini API route
-server.route('POST', '/api/gemini', geminiHandler);
+server.post('/api', handler);
 
 server.start();
