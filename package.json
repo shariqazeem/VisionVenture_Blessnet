@@ -20,7 +20,8 @@
 	},
 	"homepage": "https://github.com/blocklessnetwork/template-javy-typescript-hello-world#readme",
 	"dependencies": {
-		"@blockless/sdk-ts": "^1.1.0"
+		"@blockless/sdk-ts": "^1.1.0",
+		"groq-sdk": "^0.22.0"
 	},
 	"bls": {
 		"functionId": "bless-function_career-coach-1.0.0"
