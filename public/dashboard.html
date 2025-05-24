@@ -644,7 +644,7 @@
             }
 
             try {
-                const response = await fetch('/api/gemini', {
+                const response = await fetch('/api', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -654,6 +654,7 @@
                         promptType: promptType
                     })
                 });
+
 
                 const contentType = response.headers.get("content-type");
                 if (!contentType || !contentType.includes("application/json")) {
