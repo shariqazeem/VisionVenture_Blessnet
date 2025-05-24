@@ -3,12 +3,17 @@ version = "1.0.0"
 type = "web"
 production_host = "moccasin-whippet-daisie-z5tdt5rq.bls.dev"
 
+
 [deployment]
 permission = "public"
 nodes = 1
 permissions = [
   "https://generativelanguage.googleapis.com/"
 ]
+
+[[routes]]
+path = "/api/gemini"
+module = "gemini-handler.bls.ts"
 
 [build]
 dir = "build"
