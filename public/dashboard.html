@@ -655,20 +655,32 @@
                     })
                 });
 
+                console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
+
                 // Check if response is ok first
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                // Check content type
-                const contentType = response.headers.get("content-type");
-                if (!contentType || !contentType.includes("application/json")) {
-                    const textResponse = await response.text();
-                    console.error('Non-JSON response:', textResponse);
-                    throw new Error('Server returned non-JSON response');
+                // Get the response text first to debug
+                const responseText = await response.text();
+                console.log('Raw response:', responseText);
+
+                // Check if it's empty
+                if (!responseText) {
+                    throw new Error('Empty response from server');
                 }
 
-                const result = await response.json();
+                // Try to parse as JSON
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    console.error('Response text that failed to parse:', responseText);
+                    throw new Error('Server returned invalid JSON');
+                }
 
                 // Check for error in the JSON response
                 if (result.error) {
@@ -694,6 +706,8 @@
                     errorMessage = 'Server error. Please try again later.';
                 } else if (error.message.includes('API key')) {
                     errorMessage = 'Service configuration error. Please contact support.';
+                } else if (error.message.includes('JSON')) {
+                    errorMessage = 'Server response error. Please try again.';
                 }
 
                 document.getElementById(elementId).innerHTML = `<p>${errorMessage}</p>`;
