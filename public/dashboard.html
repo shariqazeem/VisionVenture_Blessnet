@@ -633,162 +633,70 @@
             text = text.replace(/\d+\. (.*?)(?=\n|$)/g, '<ol><li>$1</li></ol>');
             return text;
         }
-
-        // Call backend API endpoints
-        async function callBackendAPI(endpoint, elementId, button) {
+        // Call Groq API via your server routes
+        async function callGroqAPI(endpoint, elementId, button) {
             setLoadingState(button, true);
-            const profile = getUserProfile();
+            const profile = JSON.parse(sessionStorage.getItem('userProfile'));
+            if (profile) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            bio: profile.bio || 'Not provided',
+                            skills: profile.skills || 'Not provided',
+                            careerGoals: profile.careerGoals || 'Not provided'
+                        }),
+                    });
 
-            try {
-                const response = await fetch(`/api/${endpoint}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        bio: profile.bio,
-                        skills: profile.skills,
-                        careerGoals: profile.careerGoals
-                    })
-                });
+                    if (!response.ok) throw new Error(`API request failed: ${response.status}`);
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
+                    const data = await response.json();
 
-                const data = await response.json();
-
-                if (data.success) {
-                    const formattedText = formatText(data.content);
-                    document.getElementById(elementId).innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
-                } else {
+                    if (data.success) {
+                        const formattedText = formatText(data.content);
+                        document.getElementById(elementId).innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
+                    } else {
+                        throw new Error(data.error || 'API call failed');
+                    }
+                } catch (error) {
                     document.getElementById(elementId).innerHTML = '<p>Error loading data. Please try again.</p>';
+                    console.error('Error:', error);
+                } finally {
+                    setLoadingState(button, false);
                 }
-            } catch (error) {
-                document.getElementById(elementId).innerHTML = '<p>Error connecting to server. Please try again.</p>';
-                console.error('Error:', error);
-            } finally {
+            } else {
+                document.getElementById(elementId).innerHTML = '<p>Please complete your profile first.</p>';
                 setLoadingState(button, false);
-            }
-        }
-
-        // Chart updater function
-        function updateSkillAssessmentChart(skillData) {
-            const ctx = document.getElementById('skillAssessmentChart').getContext('2d');
-            if (window.skillChart) window.skillChart.destroy();
-
-            const labels = skillData.labels;
-            const data = skillData.data;
-            const bg = labels.map((_, i) =>
-                `hsla(${(i * 360 / labels.length)}, 70%, 60%, 0.2)`);
-            const bd = labels.map((_, i) =>
-                `hsla(${(i * 360 / labels.length)}, 70%, 50%, 1)`);
-
-            window.skillChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels,
-                    datasets: [{
-                        label: 'Skill Assessment',
-                        data,
-                        backgroundColor: bg,
-                        borderColor: bd,
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 3,
-                            ticks: {
-                                stepSize: 1,
-                                callback: v => ['', 'Beginner', 'Intermediate', 'Advanced'][v] || ''
-                            }
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
-
-        // Get skill chart data from backend
-        async function getSkillChartData(button) {
-            button.disabled = true;
-            const profile = getUserProfile();
-
-            try {
-                const response = await fetch('/api/skill-chart-data', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        bio: profile.bio,
-                        skills: profile.skills,
-                        careerGoals: profile.careerGoals
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json();
-
-                if (result.success && result.data) {
-                    updateSkillAssessmentChart(result.data);
-                } else {
-                    console.error('Failed to get skill chart data');
-                    updateSkillAssessmentChart({ labels: ['Error'], data: [0] });
-                }
-            } catch (error) {
-                console.error('Skill chart API error:', error);
-                updateSkillAssessmentChart({ labels: ['Error'], data: [0] });
-            } finally {
-                button.disabled = false;
             }
         }
 
         // Main event listeners
         document.addEventListener('DOMContentLoaded', function () {
-            // Initialize default chart
-            updateSkillAssessmentChart({
-                labels: ['Loading...'],
-                data: [0]
-            });
-
-            // Immediately fetch real skill data
-            const skillBtn = document.getElementById('assess-skills-btn');
-            getSkillChartData(skillBtn);
-
-            // Button event listeners for backend API calls
+            // Button event listeners for Groq API calls via server routes
             document.getElementById('get-career-recommendations-btn').addEventListener('click', function () {
-                callBackendAPI('career-recommendations', 'career-recommendations', this);
+                callGroqAPI('/api/career-recommendations', 'career-recommendations', this);
             });
 
             document.getElementById('get-job-prospects-btn').addEventListener('click', function () {
-                callBackendAPI('job-prospects', 'job-prospects', this);
+                callGroqAPI('/api/job-prospects', 'job-prospects', this);
             });
 
             document.getElementById('assess-skills-btn').addEventListener('click', function () {
-                // Call both skill assessment text and chart data
-                callBackendAPI('assess-skills', 'skill-assessment', this);
-                getSkillChartData(this);
+                callGroqAPI('/api/assess-skills', 'skill-assessment', this);
             });
 
             document.getElementById('match-jobs-btn').addEventListener('click', function () {
-                callBackendAPI('match-jobs', 'matched-jobs', this);
+                callGroqAPI('/api/match-jobs', 'matched-jobs', this);
             });
 
             document.getElementById('get-learning-resources-btn').addEventListener('click', function () {
-                callBackendAPI('learning-resources', 'learning-resources', this);
+                callGroqAPI('/api/learning-resources', 'learning-resources', this);
             });
 
             document.getElementById('find-networking-opportunities-btn').addEventListener('click', function () {
-                callBackendAPI('networking-opportunities', 'networking-opportunities', this);
+                callGroqAPI('/api/networking-opportunities', 'networking-opportunities', this);
             });
-
 
             // Smooth scroll for sidebar links
             document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
@@ -802,7 +710,22 @@
 
 
             // Initialize default chart on page load
-            // 
+            document.addEventListener('DOMContentLoaded', function () {
+                // Default data to show initially
+                const defaultData = {
+                    labels: ['JavaScript', 'HTML/CSS', 'React', 'Node.js', 'Python'],
+                    data: [2, 3, 2, 1, 1]
+                };
+
+                // Create chart with default data
+                updateSkillAssessmentChart(defaultData);
+
+                // Add event listener for assess-skills-btn
+                document.getElementById('assess-skills-btn').addEventListener('click', function () {
+                    getSkillAssessment(this);
+                });
+            });
+
             // Change profile picture on file input change
             const profilePictureInput = document.getElementById('profilePictureInput');
             const profilePictureWrapper = document.querySelector('.profile-picture-wrapper');
@@ -828,7 +751,7 @@
 
     <!-- after your Chart.js & Bootstrap `<script>` tags -->
 
-    <!-- <script>
+<script>
     // 1) Chart‐updater (unchanged)
     function updateSkillAssessmentChart(skillData) {
       const ctx = document.getElementById('skillAssessmentChart').getContext('2d');
@@ -888,14 +811,15 @@ Career goals: "${profile.careerGoals}"
       `.trim();
 
       try {
-        const resp = await fetch(
-          'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s',
-          {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({ contents:[{ parts:[{ text: prompt }] }] })
-          }
-        );
+        const response = await fetch('/api/skill-chart-data', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    bio: profile.bio || 'Not provided',
+                    skills: profile.skills || 'Not provided',
+                    careerGoals: profile.careerGoals || 'Not provided'
+                }),
+            });
         const jsn = await resp.json();
         const txt = jsn.candidates[0].content.parts[0].text;
         const match = txt.match(/(\{[\s\S]*\})/);
@@ -921,7 +845,7 @@ Career goals: "${profile.careerGoals}"
       // allow user to re‑run on click
       btn.addEventListener('click', () => getSkillAssessment(btn));
     });
-  </script> -->
+  </script> 
 
 
 </body>
