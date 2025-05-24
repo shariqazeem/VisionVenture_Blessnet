@@ -1,4 +1,4 @@
-import { HandlerContext, HttpRequest, HttpResponse } from '@blockless/sdk';
+import { HandlerContext, HttpRequest, HttpResponse } from '@blockless/sdk-ts';
 import fetch from 'node-fetch';
 
 export async function handler(req: HttpRequest, ctx: HandlerContext): Promise<HttpResponse> {
