@@ -1,7 +1,7 @@
 name = "career-coach"
 version = "1.0.0"
 type = "web"
-production_host = "plum-dolphin-monika-je5vzqxm.bls.dev"
+production_host = "indigo-lobster-darcee-7vsm4gka.bls.dev"
 
 [deployment]
 permission = "public"
@@ -21,9 +21,9 @@ command = "npm run build:release"
 [[deployments]]
 name = "blessnet"
 description = ""
-cid = "bafybeicoqjfuaqvi6tg35dwrawhlhohomvgguocphyvjmdqeb2o3amkbcu"
-created = "2025-05-27T06:27:30.845Z"
+cid = "bafybeie7zg3topsid7zdg75bbe6hrc5lzsjidx3zzwannsa4x4ity7l3hu"
+created = "2025-05-27T07:52:41.740Z"
 
   [deployments.runtime]
   url = "blessnet.tar.gz"
-  checksum = "896c364b1efbef8c5fc505f18360d7ec091e8541252b29ddf05600ae491ad4d6"
+  checksum = "c3b5dc932b307a041c9707880aa8c82592f4109fd2dc630c04ab04ef61d76966"
