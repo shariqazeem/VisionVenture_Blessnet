@@ -1,14 +1,12 @@
 name = "career-coach"
 version = "1.0.0"
 type = "web"
-production_host = "moccasin-whippet-daisie-z5tdt5rq.bls.dev"
+production_host = "plum-dolphin-monika-je5vzqxm.bls.dev"
 
 [deployment]
 permission = "public"
 nodes = 1
-permissions = [
-  "https://generativelanguage.googleapis.com/"
-]
+permissions = [ "https://generativelanguage.googleapis.com/" ]
 
 [build]
 dir = "build"
@@ -23,9 +21,9 @@ command = "npm run build:release"
 [[deployments]]
 name = "blessnet"
 description = ""
-cid = "bafybeie4x3q4q7dsfx7d6vtcx2og73xodrxz27hmz3t24tibjvz5tdt5rq"
-created = "2025-05-18T22:21:06.882Z"
+cid = "bafybeicoqjfuaqvi6tg35dwrawhlhohomvgguocphyvjmdqeb2o3amkbcu"
+created = "2025-05-27T06:27:30.845Z"
 
   [deployments.runtime]
   url = "blessnet.tar.gz"
-  checksum = "55bea6f7e14a5904b960bdc4cb0d69108187ae7dca7eaec99a5fd5cba44e1a7e"
+  checksum = "896c364b1efbef8c5fc505f18360d7ec091e8541252b29ddf05600ae491ad4d6"

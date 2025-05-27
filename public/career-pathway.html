@@ -264,19 +264,6 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle"></i> <span class="username">User</span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="profileMenu">
-                            <li><a class="dropdown-item" href="profile.html">
-                                    <i class="fas fa-user"></i> Account</a></li>
-                            <li><a class="dropdown-item" href="settings.html">
-                                    <i class="fas fa-cog"></i> Settings</a></li>
-                            <li><a class="dropdown-item" href="login.html" onclick="logout()">
-                                    <i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item logged-in-nav">
-                        <a class="nav-link" href="step1.html">
-                            <i class="fas fa-road"></i> Complete Profile
-                        </a>
                     </li>
                     <!-- Logged-out navigation items -->
                     <!-- <li class="nav-item logged-out-nav">
@@ -332,21 +319,7 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Check authentication status
-            // const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-            // if (isLoggedIn) {
-            //     document.querySelectorAll('.logged-out-nav').forEach(el => el.style.display = 'none');
-            //     document.querySelectorAll('.logged-in-nav').forEach(el => el.style.display = 'block');
-                
-            //     // Set username if available
-            //     const username = sessionStorage.getItem('username');
-            //     if (username) {
-            //         document.querySelector('.username').textContent = username;
-            //     }
-            // } else {
-            //     document.querySelectorAll('.logged-out-nav').forEach(el => el.style.display = 'block');
-            //     document.querySelectorAll('.logged-in-nav').forEach(el => el.style.display = 'none');
-            // }
+      
 
             // Initialize theme
             const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;

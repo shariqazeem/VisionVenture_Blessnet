@@ -1,116 +1,1160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Profile - Step 1</title>
+    <title>Complete Your Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        
-        body {
-            background-color: #0d1117;
-            font-family: 'Inter', sans-serif;
-            color: #e6edf3;
-        }
-        .card {
-            border-radius: 20px;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            background: rgba(0, 0, 0, 0.7) !important;
-            color: var(--card-text);
+        :root {
+            --primary-bg: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-color: #238636;
+            --accent-hover: #2ea043;
+            --error-color: #f85149;
+            --success-color: #56d364;
+            --warning-color: #e3b341;
         }
 
-        .card-body {
-            padding: 1.5rem;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
+        * {
+            box-sizing: border-box;
         }
-        .form-label, .form-text {
-            color: #8b949e;
+
+        body {
+            background: linear-gradient(135deg, var(--primary-bg) 0%, #1c2128 100%);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
         }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .progress {
+            height: 8px;
+            background: rgba(48, 54, 61, 0.3);
+            border-radius: 10px;
+            overflow: visible;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: -4px;
+            width: 16px;
+            height: 16px;
+            background: var(--success-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(86, 211, 100, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Ensure placeholder is light and visible */
+        input::placeholder,
+        textarea::placeholder {
+            color: #aaa;
+            opacity: 1;
+        }
+
+        /* Ensure white text when typing */
+        input.form-control,
+        textarea.form-control {
+            color: #fff;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+        }
+
+        /* Ensure focused state still keeps white text */
+        input.form-control:focus,
+        textarea.form-control:focus {
+            color: #fff;
+            background-color: #1a1a1a;
+        }
+
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .step-item.active {
+            opacity: 1;
+            color: var(--success-color);
+        }
+
+        .step-item.completed {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* Main Card */
+        .profile-card {
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(86, 211, 100, 0.5), transparent);
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+            animation: fadeInSlide 0.5s ease-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .step-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--success-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .step-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .form-control {
-            background-color: #0d1117;
-            border: 1px solid #30363d;
-            color: #e6edf3;
+            width: 100%;
+            padding: 1rem;
+            background: rgba(13, 17, 23, 0.8);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
+
         .form-control:focus {
-            border-color: #1f6feb;
-            box-shadow: 0 0 0 0.25rem rgba(31,111,235,0.25);
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(35, 134, 54, 0.1);
+            background: rgba(13, 17, 23, 1);
         }
-        .btn-primary {
-            background-color: #238636;
+
+        .form-control.valid {
+            border-color: var(--success-color);
+        }
+
+        .form-control.invalid {
+            border-color: var(--error-color);
+        }
+
+        /* Textarea */
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Input with icon */
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon .form-control {
+            padding-left: 3rem;
+        }
+
+        .input-with-icon .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Skills Tags */
+        .skills-container {
+            position: relative;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            min-height: 2rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, var(--accent-color), var(--success-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            animation: skillAppear 0.3s ease-out;
+        }
+
+        .skill-tag .remove-skill {
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .skill-tag .remove-skill:hover {
+            opacity: 1;
+        }
+
+        @keyframes skillAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .skills-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .skill-suggestion {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.3);
+        }
+
+        .skill-suggestion:hover {
+            background: rgba(35, 134, 54, 0.1);
+        }
+
+        .skill-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
             border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color), var(--success-color));
+            color: white;
+            flex: 1;
+        }
+
         .btn-primary:hover {
-            background-color: #2ea043;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(35, 134, 54, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Loading Animation */
+        .btn.loading {
+            pointer-events: none;
+        }
+
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Validation Messages */
+        .validation-message {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .validation-message.error {
+            background: rgba(248, 81, 73, 0.1);
+            color: var(--error-color);
+            border: 1px solid rgba(248, 81, 73, 0.2);
+            display: block;
+        }
+
+        .validation-message.success {
+            background: rgba(86, 211, 100, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(86, 211, 100, 0.2);
+            display: block;
+        }
+
+        /* Review Step */
+        .review-item {
+            background: rgba(13, 17, 23, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-item h5 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .review-item p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 0.5rem;
+            }
+
+            .profile-card {
+                padding: 1.5rem;
+                margin: 0 0.5rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .step-indicator {
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
+
 <body>
-<div class="container py-5">
-    <div class="progress mb-4">
-        <div class="progress-bar bg-success" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="container">
+        <!-- Progress Section -->
+        <div class="progress-container">
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width: 33%"></div>
+            </div>
+            <div class="step-indicator">
+                <div class="step-item active" id="step1Indicator">
+                    <i class="fas fa-user"></i>
+                    <span>Personal Info</span>
+                </div>
+                <div class="step-item" id="step2Indicator">
+                    <i class="fas fa-tools"></i>
+                    <span>Skills & Experience</span>
+                </div>
+                <div class="step-item" id="step3Indicator">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Review</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Card -->
+        <div class="profile-card">
+            <!-- Step 1: Personal Information -->
+            <div class="form-step active" id="step1">
+                <h2 class="step-title">Tell us about yourself</h2>
+                <p class="step-subtitle">Let's start with some basic information to personalize your experience</p>
+
+                <form id="step1Form">
+                    <div class="form-group">
+                        <label class="form-label">Bio</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-quote-left input-icon"></i>
+                            <textarea class="form-control" id="bio"
+                                placeholder="Share a brief description about yourself and your passions..."
+                                maxlength="300"></textarea>
+                        </div>
+                        <div class="validation-message" id="bioValidation"></div>
+                        <small class="form-text text-muted">Example: "I'm a student passionate about Web3 and AI
+                            startups."</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                            <input type="text" class="form-control" id="location" placeholder="Enter your location...">
+                        </div>
+                        <div class="validation-message" id="locationValidation"></div>
+                        <small class="form-text text-muted">Start typing: e.g., "Pakistan", "United States"</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Career Interests</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-rocket input-icon"></i>
+                            <input type="text" class="form-control" id="careerInterests"
+                                placeholder="What fields interest you?">
+                        </div>
+                        <div class="validation-message" id="careerInterestsValidation"></div>
+                        <small class="form-text text-muted">Example: "Web Development, Product Management,
+                            UX/UI"</small>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" id="nextToStep2">
+                            Next Step <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 2: Skills & Experience -->
+            <div class="form-step" id="step2">
+                <h2 class="step-title">Skills & Experience</h2>
+                <p class="step-subtitle">Help us understand your technical background and expertise</p>
+
+                <form id="step2Form">
+                    <div class="form-group">
+                        <label class="form-label">Skills</label>
+                        <div class="skills-container">
+                            <div class="input-with-icon">
+                                <i class="fas fa-code input-icon"></i>
+                                <input type="text" class="form-control" id="skillsInput"
+                                    placeholder="Type a skill and press Enter...">
+                            </div>
+                            <div class="skills-suggestions" id="skillsSuggestions"></div>
+                            <div class="skills-tags" id="skillsTags"></div>
+                        </div>
+                        <div class="validation-message" id="skillsValidation"></div>
+                        <small class="form-text text-muted">Add skills one by one. Popular: JavaScript, Python, React,
+                            Design, Marketing</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Years of Experience</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-calendar-alt input-icon"></i>
+                            <input type="number" class="form-control" id="experience" min="0" max="50" placeholder="0">
+                        </div>
+                        <div class="validation-message" id="experienceValidation"></div>
+                        <small class="form-text text-muted">Total years of professional or project experience</small>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" id="backToStep1">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button type="button" class="btn btn-primary" id="nextToStep3">
+                            Review <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Step 3: Review -->
+            <div class="form-step" id="step3">
+                <h2 class="step-title">Review Your Profile</h2>
+                <p class="step-subtitle">Take a moment to review your information before submitting</p>
+
+                <div id="reviewContent"></div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" id="backToStep2">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submitProfile">
+                        Complete Profile <i class="fas fa-check"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="card shadow-lg p-4 mx-auto" style="max-width: 600px;">
-        <h2 class="text-center mb-4">Complete Profile - Step 1</h2>
-        <form id="step1Form" class="needs-validation" novalidate>
-            <div class="mb-3">
-                <label for="bio" class="form-label">Bio</label>
-                <textarea class="form-control" id="bio" name="bio" rows="3" required></textarea>
-                <small class="form-text">Example: "I'm a student passionate about Web3 and AI startups."</small>
-            </div>
-            <div class="mb-3">
-                <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" id="location" name="location" required>
-                <small class="form-text">Start typing: e.g., "Pakistan", "United States"</small>
-            </div>
-            <div class="mb-3">
-                <label for="careerInterests" class="form-label">Career Interests</label>
-                <input type="text" class="form-control" id="careerInterests" name="careerInterests" required>
-                <small class="form-text">Example: "Web Development, Product Management, UX/UI"</small>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 mt-3">Next</button>
-        </form>
-    </div>
-</div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        // Global variables
+        let currentStep = 1;
+        let formData = {};
+        let selectedSkills = [];
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const countries = [
-        "Afghanistan", "Albania", "Algeria", "Pakistan", "India", "United States", "United Kingdom", "Germany", "France", "Japan", "China", "Indonesia", "Brazil"
-    ];
-    $(function() {
-        $("#location").autocomplete({ source: countries });
-    });
+        // Countries for autocomplete
+        const countries = [
+            "Afghanistan", "Albania", "Algeria", "Pakistan", "India", "United States",
+            "United Kingdom", "Germany", "France", "Japan", "China", "Indonesia", "Brazil",
+            "Canada", "Australia", "Netherlands", "Sweden", "Norway", "Denmark", "Finland"
+        ];
 
-    (() => {
-        'use strict';
-        const form = document.getElementById('step1Form');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated');
-                return;
+        // Skills suggestions
+        const skillSuggestions = [
+            "JavaScript", "Python", "React", "Node.js", "HTML", "CSS", "TypeScript", "Java",
+            "C++", "PHP", "Ruby", "Go", "Rust", "Swift", "Kotlin", "Flutter", "React Native",
+            "Vue.js", "Angular", "Express.js", "Django", "Flask", "Spring", "Laravel",
+            "MongoDB", "PostgreSQL", "MySQL", "Redis", "Docker", "Kubernetes", "AWS",
+            "Azure", "Google Cloud", "Git", "Jenkins", "Terraform", "Linux", "Bash",
+            "Photoshop", "Figma", "Sketch", "Adobe XD", "Illustrator", "InDesign",
+            "UI/UX Design", "Graphic Design", "Web Design", "Product Design",
+            "Digital Marketing", "SEO", "Content Marketing", "Social Media Marketing",
+            "Google Analytics", "Facebook Ads", "Google Ads", "Email Marketing",
+            "Project Management", "Agile", "Scrum", "Jira", "Trello", "Slack",
+            "Communication", "Leadership", "Problem Solving", "Critical Thinking"
+        ];
+
+        // Initialize the application
+        $(document).ready(function () {
+            initializeLocationAutocomplete();
+            initializeSkillsInput();
+            setupEventListeners();
+            setupFormValidation();
+        });
+
+        // Location autocomplete
+        function initializeLocationAutocomplete() {
+            $("#location").autocomplete({
+                source: countries,
+                minLength: 1,
+                select: function (event, ui) {
+                    validateField('location', ui.item.value);
+                }
+            });
+        }
+
+        // Skills input functionality
+        function initializeSkillsInput() {
+            const skillsInput = document.getElementById('skillsInput');
+            const suggestionsList = document.getElementById('skillsSuggestions');
+
+            skillsInput.addEventListener('input', function () {
+                const value = this.value.toLowerCase();
+                if (value.length > 0) {
+                    const matches = skillSuggestions.filter(skill =>
+                        skill.toLowerCase().includes(value) &&
+                        !selectedSkills.includes(skill)
+                    );
+
+                    if (matches.length > 0) {
+                        suggestionsList.innerHTML = matches.slice(0, 5).map(skill =>
+                            `<div class="skill-suggestion" onclick="addSkill('${skill}')">${skill}</div>`
+                        ).join('');
+                        suggestionsList.style.display = 'block';
+                    } else {
+                        suggestionsList.style.display = 'none';
+                    }
+                } else {
+                    suggestionsList.style.display = 'none';
+                }
+            });
+
+            skillsInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const value = this.value.trim();
+                    if (value) {
+                        addSkill(value);
+                        this.value = '';
+                        suggestionsList.style.display = 'none';
+                    }
+                }
+            });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.skills-container')) {
+                    suggestionsList.style.display = 'none';
+                }
+            });
+        }
+
+        // Add skill tag
+        function addSkill(skill) {
+            if (!selectedSkills.includes(skill)) {
+                selectedSkills.push(skill);
+                renderSkillTags();
+                validateField('skills', selectedSkills.join(', '));
+            }
+        }
+
+        // Remove skill tag
+        function removeSkill(skill) {
+            selectedSkills = selectedSkills.filter(s => s !== skill);
+            renderSkillTags();
+            validateField('skills', selectedSkills.join(', '));
+        }
+
+        // Render skill tags
+        function renderSkillTags() {
+            const container = document.getElementById('skillsTags');
+            container.innerHTML = selectedSkills.map(skill =>
+                `<div class="skill-tag">
+                    ${skill}
+                    <span class="remove-skill" onclick="removeSkill('${skill}')">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </div>`
+            ).join('');
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Navigation buttons
+            document.getElementById('nextToStep2').addEventListener('click', () => {
+                if (validateStep1()) {
+                    saveStepData(1);
+                    goToStep(2);
+                }
+            });
+
+            document.getElementById('nextToStep3').addEventListener('click', () => {
+                if (validateStep2()) {
+                    saveStepData(2);
+                    renderReview();
+                    goToStep(3);
+                }
+            });
+
+            document.getElementById('backToStep1').addEventListener('click', () => {
+                goToStep(1);
+            });
+
+            document.getElementById('backToStep2').addEventListener('click', () => {
+                goToStep(2);
+            });
+
+            document.getElementById('submitProfile').addEventListener('click', () => {
+                submitCompleteProfile();
+            });
+        }
+
+        // Form validation setup
+        function setupFormValidation() {
+            // Real-time validation
+            document.getElementById('bio').addEventListener('input', function () {
+                validateField('bio', this.value);
+            });
+
+            document.getElementById('location').addEventListener('input', function () {
+                validateField('location', this.value);
+            });
+
+            document.getElementById('careerInterests').addEventListener('input', function () {
+                validateField('careerInterests', this.value);
+            });
+
+            document.getElementById('experience').addEventListener('input', function () {
+                validateField('experience', this.value);
+            });
+        }
+
+        // Field validation
+        function validateField(fieldName, value) {
+            const field = document.getElementById(fieldName === 'skills' ? 'skillsInput' : fieldName);
+            const validation = document.getElementById(fieldName + 'Validation');
+
+            let isValid = false;
+            let message = '';
+
+            switch (fieldName) {
+                case 'bio':
+                    isValid = value.trim().length >= 20;
+                    message = isValid ? 'Great bio!' : 'Bio should be at least 20 characters long';
+                    break;
+                case 'location':
+                    isValid = value.trim().length >= 2;
+                    message = isValid ? 'Location looks good!' : 'Please enter a valid location';
+                    break;
+                case 'careerInterests':
+                    isValid = value.trim().length >= 5;
+                    message = isValid ? 'Perfect!' : 'Please describe your career interests';
+                    break;
+                case 'skills':
+                    isValid = selectedSkills.length >= 2;
+                    message = isValid ? `${selectedSkills.length} skills added!` : 'Please add at least 2 skills';
+                    break;
+                case 'experience':
+                    isValid = value >= 0 && value <= 50;
+                    message = isValid ? 'Experience noted!' : 'Please enter valid years of experience';
+                    break;
             }
 
-            // Save data to localStorage
-            const formData = {
+            // Update field styling
+            if (fieldName !== 'skills') {
+                field.classList.remove('valid', 'invalid');
+                field.classList.add(isValid ? 'valid' : 'invalid');
+            }
+
+            // Update validation message
+            validation.textContent = message;
+            validation.className = 'validation-message ' + (isValid ? 'success' : 'error');
+
+            return isValid;
+        }
+
+        // Step validation
+        function validateStep1() {
+            const bio = validateField('bio', document.getElementById('bio').value);
+            const location = validateField('location', document.getElementById('location').value);
+            const careerInterests = validateField('careerInterests', document.getElementById('careerInterests').value);
+
+            return bio && location && careerInterests;
+        }
+
+        function validateStep2() {
+            const skills = validateField('skills', selectedSkills.join(', '));
+            const experience = validateField('experience', document.getElementById('experience').value);
+
+            return skills && experience;
+        }
+
+        // Save step data
+        function saveStepData(step) {
+            if (step === 1) {
+                formData.bio = document.getElementById('bio').value;
+                formData.location = document.getElementById('location').value;
+                formData.careerInterests = document.getElementById('careerInterests').value;
+            } else if (step === 2) {
+                formData.skills = selectedSkills.join(', ');
+                formData.experience = document.getElementById('experience').value;
+            }
+        }
+
+        // Navigation between steps
+        function goToStep(step) {
+            // Hide current step
+            document.querySelector('.form-step.active').classList.remove('active');
+
+            // Show target step
+            document.getElementById(`step${step}`).classList.add('active');
+
+            // Update progress
+            updateProgress(step);
+
+            // Update step indicators
+            updateStepIndicators(step);
+
+            currentStep = step;
+        }
+
+        // Update progress bar
+        function updateProgress(step) {
+            const progress = (step / 3) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Update step indicators
+        function updateStepIndicators(step) {
+            for (let i = 1; i <= 3; i++) {
+                const indicator = document.getElementById(`step${i}Indicator`);
+                indicator.classList.remove('active', 'completed');
+
+                if (i < step) {
+                    indicator.classList.add('completed');
+                } else if (i === step) {
+                    indicator.classList.add('active');
+                }
+            }
+        }
+
+        // Render review step
+        function renderReview() {
+            const reviewContent = document.getElementById('reviewContent');
+
+            reviewContent.innerHTML = `
+                <div class="review-item">
+                    <h5>Biography</h5>
+                    <p>${formData.bio}</p>
+                </div>
+                <div class="review-item">
+                    <h5>Location</h5>
+                    <p>${formData.location}</p>
+                </div>
+                <div class="review-item">
+                    <h5>Career Interests</h5>
+                    <p>${formData.careerInterests}</p>
+                </div>
+                <div class="review-item">
+                    <h5>Skills</h5>
+                    <p>${formData.skills}</p>
+                </div>
+                <div class="review-item">
+                    <h5>Experience</h5>
+                    <p>${formData.experience} ${formData.experience == 1 ? 'year' : 'years'}</p>
+                </div>
+            `;
+        }
+
+        // Submit complete profile
+        function submitCompleteProfile() {
+            const button = document.getElementById('submitProfile');
+            button.classList.add('loading');
+            button.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                // Create comprehensive profile data
+                const profile = {
+                    bio: formData.bio || '',
+                    skills: formData.skills || '',
+                    careerGoals: formData.careerInterests || '',
+                    location: formData.location || '',
+                    experience: formData.experience || ''
+                };
+
+                // Store profile data in multiple formats for compatibility
+                window.userProfile = profile;
+
+                // Also store in sessionStorage format for dashboard compatibility
+                sessionStorage.setItem('userProfile', JSON.stringify(profile));
+
+                // Store individual fields for additional compatibility
+                sessionStorage.setItem('bio', profile.bio);
+                sessionStorage.setItem('skills', profile.skills);
+                sessionStorage.setItem('careerGoals', profile.careerGoals);
+                sessionStorage.setItem('location', profile.location);
+                sessionStorage.setItem('experience', profile.experience);
+
+                // Show success message
+                showSuccessMessage();
+
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                    console.log('Profile completed successfully!', profile);
+                }, 1500);
+
+            }, 2000);
+        }
+
+        // Show success message
+        function showSuccessMessage() {
+            const button = document.getElementById('submitProfile');
+            button.classList.remove('loading');
+            button.innerHTML = '<i class="fas fa-check"></i> Profile Completed!';
+            button.style.background = 'linear-gradient(135deg, var(--success-color), #4ade80)';
+        }
+
+        // Auto-save functionality
+        function autoSave() {
+            const currentData = {
                 bio: document.getElementById('bio').value,
                 location: document.getElementById('location').value,
-                careerInterests: document.getElementById('careerInterests').value
+                careerInterests: document.getElementById('careerInterests').value,
+                skills: selectedSkills,
+                experience: document.getElementById('experience').value
             };
-            localStorage.setItem('profileStep1', JSON.stringify(formData));
 
-            // Redirect to Step 2
-            window.location.href = 'step2.html';
+            // Store in memory for the session
+            window.tempProfileData = currentData;
+        }
+
+        // Load saved data on page load
+        function loadSavedData() {
+            if (window.tempProfileData) {
+                const data = window.tempProfileData;
+                document.getElementById('bio').value = data.bio || '';
+                document.getElementById('location').value = data.location || '';
+                document.getElementById('careerInterests').value = data.careerInterests || '';
+                selectedSkills = data.skills || [];
+                document.getElementById('experience').value = data.experience || '';
+                renderSkillTags();
+            }
+        }
+
+        // Auto-save every 30 seconds
+        setInterval(autoSave, 30000);
+
+        // Load saved data when page loads
+        window.addEventListener('load', loadSavedData);
+
+        // Enhanced API Integration Function (for future use)
+        async function callGeminiAPI(promptTemplate, elementId, button) {
+            if (!button) return;
+
+            setLoadingState(button, true);
+            const profile = window.userProfile;
+
+            if (profile) {
+                const prompt = promptTemplate
+                    .replace('${bio}', profile.bio || 'Not provided')
+                    .replace('${skills}', profile.skills || 'Not provided')
+                    .replace('${careerGoals}', profile.careerGoals || 'Not provided');
+
+                try {
+                    const response = await fetch(
+                        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s`,
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{ parts: [{ text: prompt }] }],
+                            }),
+                        }
+                    );
+
+                    if (!response.ok) throw new Error('API request failed');
+
+                    const data = await response.json();
+                    const text = data.candidates[0].content.parts[0].text;
+                    const formattedText = formatText(text);
+
+                    if (document.getElementById(elementId)) {
+                        document.getElementById(elementId).innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
+                    }
+                } catch (error) {
+                    if (document.getElementById(elementId)) {
+                        document.getElementById(elementId).innerHTML = '<p>Error loading data. Please try again.</p>';
+                    }
+                    console.error('Error:', error);
+                } finally {
+                    setLoadingState(button, false);
+                }
+            } else {
+                if (document.getElementById(elementId)) {
+                    document.getElementById(elementId).innerHTML = '<p>Please complete your profile first.</p>';
+                }
+                setLoadingState(button, false);
+            }
+        }
+
+        // Helper function for loading states
+        function setLoadingState(button, isLoading) {
+            if (isLoading) {
+                button.classList.add('loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('loading');
+                button.disabled = false;
+            }
+        }
+
+        // Helper function to format text
+        function formatText(text) {
+            return text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                if (currentStep === 1) {
+                    document.getElementById('nextToStep2').click();
+                } else if (currentStep === 2) {
+                    document.getElementById('nextToStep3').click();
+                } else if (currentStep === 3) {
+                    document.getElementById('submitProfile').click();
+                }
+            }
         });
-    })();
-</script>
 
+        // Add smooth scrolling for better UX
+        function smoothScrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Enhanced error handling
+        window.addEventListener('error', function (e) {
+            console.error('Global error:', e.error);
+        });
+
+        // Add tooltips for better UX (simple implementation)
+        function addTooltips() {
+            const tooltips = document.querySelectorAll('[data-tooltip]');
+            tooltips.forEach(element => {
+                element.addEventListener('mouseenter', function () {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = this.getAttribute('data-tooltip');
+                    document.body.appendChild(tooltip);
+
+                    const rect = this.getBoundingClientRect();
+                    tooltip.style.left = rect.left + 'px';
+                    tooltip.style.top = (rect.top - tooltip.offsetHeight - 5) + 'px';
+                });
+
+                element.addEventListener('mouseleave', function () {
+                    const tooltip = document.querySelector('.tooltip');
+                    if (tooltip) {
+                        tooltip.remove();
+                    }
+                });
+            });
+        }
+
+        // Initialize tooltips when DOM is ready
+        document.addEventListener('DOMContentLoaded', addTooltips);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const auto = urlParams.get("auto");
+
+            if (auto === "review") {
+                const reviewButton = document.getElementById("nextToStep3");
+                if (reviewButton) {
+                    // Optional: Delay if necessary to wait for page/rendering
+                    setTimeout(() => {
+                        reviewButton.click();
+                    }, 300); // adjust delay if needed
+                }
+            }
+        });
+    </script>
 </body>
+
 </html>
