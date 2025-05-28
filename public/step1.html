@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
+   <style>
         :root {
             --primary-bg: #0d1117;
             --card-bg: #161b22;
@@ -20,6 +20,8 @@
             --error-color: #f85149;
             --success-color: #56d364;
             --warning-color: #e3b341;
+            --input-bg: #21262d;
+            --input-border: #373e47;
         }
 
         * {
@@ -75,13 +77,10 @@
         }
 
         @keyframes pulse {
-
-            0%,
-            100% {
+            0%, 100% {
                 transform: scale(1);
                 opacity: 1;
             }
-
             50% {
                 transform: scale(1.2);
                 opacity: 0.8;
@@ -95,29 +94,6 @@
             font-size: 0.875rem;
             color: var(--text-secondary);
         }
-
-        /* Ensure placeholder is light and visible */
-        input::placeholder,
-        textarea::placeholder {
-            color: #aaa;
-            opacity: 1;
-        }
-
-        /* Ensure white text when typing */
-        input.form-control,
-        textarea.form-control {
-            color: #fff;
-            background-color: #1a1a1a;
-            border: 1px solid #444;
-        }
-
-        /* Ensure focused state still keeps white text */
-        input.form-control:focus,
-        textarea.form-control:focus {
-            color: #fff;
-            background-color: #1a1a1a;
-        }
-
 
         .step-item {
             display: flex;
@@ -176,7 +152,6 @@
                 opacity: 0;
                 transform: translateX(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -218,20 +193,26 @@
         .form-control {
             width: 100%;
             padding: 1rem;
-            background: rgba(13, 17, 23, 0.8);
-            border: 2px solid var(--border-color);
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
             border-radius: 12px;
-            color: var(--text-primary);
+            color: var(--text-primary) !important;
             font-size: 1rem;
             transition: all 0.3s ease;
             position: relative;
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary) !important;
+            opacity: 0.8;
         }
 
         .form-control:focus {
             outline: none;
             border-color: var(--accent-color);
             box-shadow: 0 0 0 4px rgba(35, 134, 54, 0.1);
-            background: rgba(13, 17, 23, 1);
+            background: var(--input-bg);
+            color: var(--text-primary) !important;
         }
 
         .form-control.valid {
@@ -267,7 +248,45 @@
             z-index: 1;
         }
 
-        /* Skills Tags */
+        /* Skills Input Container */
+        .skills-input-container {
+            display: flex;
+            gap: 0.5rem;
+            align-items: stretch;
+        }
+
+        .skills-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .add-skill-btn {
+            background: linear-gradient(135deg, var(--accent-color), var(--success-color));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-skill-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(35, 134, 54, 0.3);
+        }
+
+        .add-skill-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Skills Container */
         .skills-container {
             position: relative;
         }
@@ -276,7 +295,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 0.5rem;
+            margin-top: 1rem;
             min-height: 2rem;
         }
 
@@ -297,10 +316,19 @@
             cursor: pointer;
             opacity: 0.7;
             transition: opacity 0.2s;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
         }
 
         .skill-tag .remove-skill:hover {
             opacity: 1;
+            background: rgba(255, 255, 255, 0.3);
         }
 
         @keyframes skillAppear {
@@ -308,7 +336,6 @@
                 opacity: 0;
                 transform: scale(0.8);
             }
-
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -327,6 +354,8 @@
             overflow-y: auto;
             z-index: 1000;
             display: none;
+            margin-top: 4px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
         .skill-suggestion {
@@ -334,6 +363,7 @@
             cursor: pointer;
             transition: background-color 0.2s;
             border-bottom: 1px solid rgba(48, 54, 61, 0.3);
+            color: var(--text-primary);
         }
 
         .skill-suggestion:hover {
@@ -413,7 +443,6 @@
             0% {
                 transform: rotate(0deg);
             }
-
             100% {
                 transform: rotate(360deg);
             }
@@ -442,6 +471,13 @@
             display: block;
         }
 
+        /* Form text improvements */
+        .form-text {
+            color: var(--text-secondary) !important;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
         /* Review Step */
         .review-item {
             background: rgba(13, 17, 23, 0.5);
@@ -463,9 +499,22 @@
             margin: 0;
             font-size: 1rem;
             line-height: 1.5;
+            color: var(--text-primary);
         }
 
-        /* Responsive */
+        /* Skills count indicator */
+        .skills-count {
+            display: inline-block;
+            background: rgba(35, 134, 54, 0.2);
+            color: var(--success-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* Enhanced mobile experience */
         @media (max-width: 768px) {
             .container {
                 padding: 1rem 0.5rem;
@@ -483,6 +532,49 @@
             .step-indicator {
                 font-size: 0.75rem;
             }
+
+            .skills-input-container {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .add-skill-btn {
+                padding: 0.875rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .step-title {
+                font-size: 1.5rem;
+            }
+
+            .form-control {
+                padding: 0.875rem;
+            }
+
+            .input-with-icon .form-control {
+                padding-left: 2.75rem;
+            }
+
+            .input-with-icon .input-icon {
+                left: 0.875rem;
+            }
+        }
+
+        /* Better focus styles for accessibility */
+        .form-control:focus-visible,
+        .btn:focus-visible,
+        .add-skill-btn:focus-visible {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth transitions for all interactive elements */
+        .skill-suggestion,
+        .skill-tag,
+        .form-control,
+        .btn,
+        .add-skill-btn {
+            transition: all 0.2s ease;
         }
     </style>
 </head>

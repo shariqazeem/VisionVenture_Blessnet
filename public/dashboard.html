@@ -368,6 +368,407 @@
             background: url('https://img.icons8.com/ios-glyphs/30/ff4081/star--v1.png') no-repeat;
             background-size: contain;
         }
+        /* Enhanced Content Styling */
+.enhanced-content {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.7;
+    color: #333;
+    max-width: 100%;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Headers */
+.primary-header {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #3498db;
+    position: relative;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.main-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #34495e;
+    margin: 25px 0 15px 0;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.section-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2980b9;
+    margin: 20px 0 12px 0;
+    padding-left: 15px;
+    border-left: 4px solid #3498db;
+    background: rgba(52, 152, 219, 0.05);
+    padding: 12px 15px;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.section-header:hover {
+    background: rgba(52, 152, 219, 0.1);
+    transform: translateX(5px);
+}
+
+/* Text Styling */
+.highlight-text {
+    background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #2c3e50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.highlight-text:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.italic-text {
+    color: #7f8c8d;
+    font-style: italic;
+    position: relative;
+}
+
+/* List Items */
+.numbered-item, .bullet-item {
+    display: flex;
+    align-items: flex-start;
+    margin: 12px 0;
+    padding: 15px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 10px;
+    border-left: 4px solid #28a745;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.numbered-item:hover, .bullet-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    border-left-color: #17a2b8;
+}
+
+.numbered-item::before, .bullet-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.numbered-item:hover::before, .bullet-item:hover::before {
+    transform: scaleX(1);
+}
+
+.number-badge, .bullet-icon {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+    transition: all 0.3s ease;
+}
+
+.bullet-icon {
+    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+    box-shadow: 0 2px 6px rgba(23, 162, 184, 0.3);
+}
+
+.numbered-item:hover .number-badge, .bullet-item:hover .bullet-icon {
+    transform: rotate(360deg) scale(1.1);
+}
+
+.item-content {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #495057;
+}
+
+/* Key-Value Pairs */
+.key-value-pair {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    padding: 12px 18px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.key-value-pair:hover {
+    border-color: #6c757d;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.key-label {
+    font-weight: 600;
+    color: #495057;
+    margin-right: 10px;
+    min-width: 120px;
+    display: inline-block;
+    position: relative;
+}
+
+.key-label::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #007bff, #6610f2);
+    transition: width 0.3s ease;
+}
+
+.key-value-pair:hover .key-label::after {
+    width: 100%;
+}
+
+.value-text {
+    color: #6c757d;
+    flex: 1;
+    line-height: 1.5;
+}
+
+/* Spacing */
+.paragraph-break {
+    height: 20px;
+}
+
+/* Dark Mode Support */
+.dark-mode .enhanced-content {
+    color: #e9ecef;
+}
+
+.dark-mode .primary-header {
+    color: #74b9ff;
+    border-bottom-color: #0984e3;
+}
+
+.dark-mode .section-header {
+    color: #74b9ff;
+    border-left-color: #0984e3;
+    background: rgba(116, 185, 255, 0.1);
+}
+
+.dark-mode .numbered-item, 
+.dark-mode .bullet-item {
+    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+    border-left-color: #48bb78;
+}
+
+.dark-mode .key-value-pair {
+    background: rgba(45, 55, 72, 0.8);
+    border-color: #4a5568;
+}
+
+.dark-mode .key-label {
+    color: #cbd5e0;
+}
+
+.dark-mode .value-text {
+    color: #a0aec0;
+}
+
+.dark-mode .item-content {
+    color: #cbd5e0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .enhanced-content {
+        font-size: 14px;
+    }
+    
+    .primary-header {
+        font-size: 1.5rem;
+    }
+    
+    .main-header {
+        font-size: 1.3rem;
+    }
+    
+    .section-header {
+        font-size: 1.1rem;
+        padding: 10px 12px;
+    }
+    
+    .numbered-item, .bullet-item {
+        padding: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .number-badge, .bullet-icon {
+        margin-bottom: 8px;
+        margin-right: 0;
+    }
+    
+    .key-value-pair {
+        flex-direction: column;
+        padding: 10px 15px;
+    }
+    
+    .key-label {
+        min-width: auto;
+        margin-bottom: 5px;
+    }
+}
+
+/* Loading Animation */
+.card.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.card.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+    z-index: 1;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Success Animation */
+.content-loaded {
+    animation: contentAppear 0.8s ease-out;
+}
+
+@keyframes contentAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scroll Animations */
+.enhanced-content > * {
+    animation: slideInFromBottom 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.enhanced-content > *:nth-child(1) { animation-delay: 0.1s; }
+.enhanced-content > *:nth-child(2) { animation-delay: 0.2s; }
+.enhanced-content > *:nth-child(3) { animation-delay: 0.3s; }
+.enhanced-content > *:nth-child(4) { animation-delay: 0.4s; }
+.enhanced-content > *:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Interactive Elements */
+.interactive-tip {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.interactive-tip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.interactive-tip::before {
+    content: '💡';
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+/* Print Styles */
+@media print {
+    .enhanced-content {
+        color: #000 !important;
+        background: white !important;
+    }
+    
+    .numbered-item, .bullet-item {
+        background: white !important;
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+    }
+    
+    .highlight-text {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+    }
+}
     </style>
 </head>
 
@@ -544,7 +945,7 @@
 
     <script src="app.js" defer></script>
 
-    <script>
+   <script>
         // Dashboard content storage in memory
         window.dashboardContent = {
             careerRecommendations: null,
@@ -561,7 +962,7 @@
             console.log('DOM loaded, initializing dashboard...');
 
             // Set user as logged in for dashboard page
-            sessionStorage.setItem('isLoggedIn', 'true'); // Changed from localStorage
+            sessionStorage.setItem('isLoggedIn', 'true');
             const username = sessionStorage.getItem('username') || 'User';
 
             // Update username display in navbar and profile
@@ -624,7 +1025,7 @@
         // Handle logout
         function logout() {
             sessionStorage.setItem('isLoggedIn', 'false');
-            window.location.href = 'login.html'; // Redirect to login page
+            window.location.href = 'login.html';
         }
 
         // Set loading state for buttons
@@ -641,7 +1042,6 @@
                 button.classList.remove('loading');
                 if (cardBody) cardBody.closest('.card').classList.remove('loading');
                 button.disabled = false;
-                // Reset button text based on button ID
                 resetButtonText(button);
             }
         }
@@ -663,23 +1063,43 @@
             }
         }
 
-        // Format API response text
+        // Enhanced text formatting function
         function formatText(text) {
             if (!text) return '';
 
-            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            // Clean up the text first
+            text = text.trim();
+
+            // Convert markdown-style formatting
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="highlight-text">$1</strong>');
+            text = text.replace(/\*(.*?)\*/g, '<em class="italic-text">$1</em>');
+            
+            // Handle headers
+            text = text.replace(/^### (.*$)/gm, '<h3 class="section-header">$1</h3>');
+            text = text.replace(/^## (.*$)/gm, '<h2 class="main-header">$1</h2>');
+            text = text.replace(/^# (.*$)/gm, '<h1 class="primary-header">$1</h1>');
+
+            // Handle numbered lists with enhanced styling
+            text = text.replace(/^\d+\.\s(.+)$/gm, '<div class="numbered-item"><span class="number-badge">•</span><span class="item-content">$1</span></div>');
+            
+            // Handle bullet points with enhanced styling
+            text = text.replace(/^[-*]\s(.+)$/gm, '<div class="bullet-item"><span class="bullet-icon">→</span><span class="item-content">$1</span></div>');
+            
+            // Handle key-value pairs (e.g., "Role: Description")
+            text = text.replace(/^([A-Za-z\s]+):\s(.+)$/gm, '<div class="key-value-pair"><span class="key-label">$1:</span><span class="value-text">$2</span></div>');
+            
+            // Convert line breaks to proper spacing
+            text = text.replace(/\n\n/g, '<div class="paragraph-break"></div>');
             text = text.replace(/\n/g, '<br>');
-            text = text.replace(/- \[ \] (.*?)(?=\n|$)/g, '<ul><li>$1</li></ul>');
-            text = text.replace(/\d+\. (.*?)(?=\n|$)/g, '<ol><li>$1</li></ol>');
-            return text;
+
+            // Wrap everything in a styled container
+            return `<div class="enhanced-content">${text}</div>`;
         }
 
         // Load saved user profile from multiple sources
         function loadUserProfile() {
             console.log('Loading user profile...');
 
-            // Try multiple sources for profile data
             let profile = window.userProfile ||
                 JSON.parse(sessionStorage.getItem('userProfile') || 'null') ||
             {
@@ -716,19 +1136,18 @@
                 const element = document.getElementById(id);
 
                 if (savedContent && element) {
-                    element.innerHTML = `<div class="enhanced-text">${savedContent}</div>`;
+                    element.innerHTML = savedContent;
                     console.log(`Loaded content for ${id}`);
                 }
             });
         }
 
-        // Enhanced API call function with content persistence
+        // Enhanced API call function with improved prompts
         async function callGeminiAPI(promptTemplate, elementId, button) {
             console.log(`Calling Gemini API for ${elementId}`);
 
             setLoadingState(button, true);
 
-            // Get profile from multiple sources
             let profile = window.userProfile ||
                 JSON.parse(sessionStorage.getItem('userProfile') || '{}') ||
             {
@@ -739,7 +1158,6 @@
 
             console.log('Using profile:', profile);
 
-            // Check if we have any profile data
             const hasProfileData = profile && (
                 (profile.bio && profile.bio !== 'Not provided') ||
                 (profile.skills && profile.skills !== 'Not provided') ||
@@ -758,7 +1176,9 @@
             const prompt = promptTemplate
                 .replace('${bio}', profile.bio || 'Not provided')
                 .replace('${skills}', profile.skills || 'Not provided')
-                .replace('${careerGoals}', profile.careerGoals || 'Not provided');
+                .replace('${careerGoals}', profile.careerGoals || 'Not provided')
+                .replace('${location}', profile.location || 'Not specified')
+                .replace('${experience}', profile.experience || 'Not specified');
 
             console.log('Generated prompt:', prompt);
 
@@ -790,17 +1210,15 @@
                 const text = data.candidates[0].content.parts[0].text;
                 const formattedText = formatText(text);
 
-                // Save content to memory based on elementId
                 const contentKey = getContentKey(elementId);
                 if (contentKey) {
                     window.dashboardContent[contentKey] = formattedText;
                     sessionStorage.setItem(contentKey, formattedText);
                 }
 
-                // Display content
                 const element = document.getElementById(elementId);
                 if (element) {
-                    element.innerHTML = `<div class="enhanced-text">${formattedText}</div>`;
+                    element.innerHTML = formattedText;
                     console.log(`Content updated for ${elementId}`);
                 }
 
@@ -815,7 +1233,6 @@
             }
         }
 
-        // Helper function to map element IDs to content keys
         function getContentKey(elementId) {
             const mappings = {
                 'career-recommendations': 'careerRecommendations',
@@ -828,45 +1245,312 @@
             return mappings[elementId] || null;
         }
 
-        // Setup all button event listeners
+        // Setup all button event listeners with enhanced prompts
         function setupButtonListeners() {
             console.log('Setting up button listeners...');
 
-            // Button configurations
             const buttonConfigs = [
                 {
                     id: 'get-career-recommendations-btn',
                     elementId: 'career-recommendations',
-                    prompt: "Generate detailed career recommendations for a user with bio: '${bio}', skills: '${skills}', and career goals: '${careerGoals}'. Include specific job roles and why they are suitable."
+                    prompt: `Act as a senior career counselor with 15+ years of experience. Based on the user profile below, provide personalized career recommendations that are both realistic and aspirational.
+
+**User Profile:**
+- Bio: ${bio}
+- Skills: ${skills}
+- Career Goals: ${careerGoals}
+- Location: ${location}
+- Experience: ${experience}
+
+**Please provide:**
+
+## 🎯 Top 3 Career Paths
+For each path, include:
+- **Job Title & Industry**
+- **Why it's perfect for you** (based on their specific skills/goals)
+- **Salary range** (be realistic for their location/experience)
+- **Growth potential** (next 5-10 years)
+
+## 🚀 Quick Wins (Next 6 Months)
+- 3 immediate actions they can take
+- Skills to prioritize
+- Certifications that matter
+
+## 💡 Insider Tips
+- Industry trends they should know
+- Common mistakes to avoid
+- What employers really want
+
+Make it personal, actionable, and inspiring. Use their actual skills and goals in your recommendations.`
                 },
                 {
                     id: 'get-job-prospects-btn',
                     elementId: 'job-prospects',
-                    prompt: "Provide job prospects and market outlook for a user with skills: '${skills}' and career goals: '${careerGoals}'. Highlight growth areas and competitive advantages."
+                    prompt: `You are a market research analyst specializing in employment trends. Analyze the job market for someone with this profile:
+
+**User Profile:**
+- Skills: ${skills}
+- Career Goals: ${careerGoals}
+- Location: ${location}
+- Experience Level: ${experience}
+
+**Provide a comprehensive market analysis:**
+
+## 📈 Market Outlook (Next 2-3 Years)
+- Industry growth trends
+- Demand for their specific skills
+- Emerging opportunities
+- Market challenges to be aware of
+
+## 💰 Salary Intelligence
+- Current market rates for their skill level
+- Factors that could increase their earning potential
+- Geographic salary variations
+- Negotiation insights
+
+## 🔥 Hot Skills in Demand
+- Which of their current skills are most valuable
+- Skills gaps they should fill
+- Future-proof skills to develop
+- Technologies/tools to learn
+
+## 🎯 Strategic Positioning
+- How to position themselves competitively
+- Unique value propositions they can leverage
+- Market segments with less competition
+- Timing recommendations for job searching
+
+Be specific with data-driven insights and actionable market intelligence.`
                 },
                 {
                     id: 'assess-skills-btn',
                     elementId: 'skill-assessment',
-                    prompt: "Assess user skills based on bio: '${bio}', skills: '${skills}', and career goals: '${careerGoals}'. Provide detailed analysis of strengths and areas for improvement."
+                    prompt: `You are a professional skills assessor and career coach. Conduct a thorough skills audit for this professional:
+
+**Profile to Assess:**
+- Background: ${bio}
+- Current Skills: ${skills}
+- Career Aspirations: ${careerGoals}
+- Experience: ${experience}
+
+## 🏆 Strengths Analysis
+**Your Top Skills:**
+- Identify their 5 strongest skills
+- Explain why each is valuable in today's market
+- Rate proficiency level and market demand
+
+## 🎯 Growth Opportunities
+**Skills to Develop:**
+- 3-5 skills that would accelerate their career
+- Gap analysis: current vs. desired role requirements
+- Priority ranking with reasoning
+
+## 🔍 Skill-to-Career Alignment
+- How well current skills match their goals
+- Which skills transfer to their target roles
+- Skills they may be undervaluing
+
+## 📚 Development Roadmap
+**90-Day Quick Wins:**
+- Immediate skill improvements
+- Low-hanging fruit opportunities
+
+**6-Month Goals:**
+- Structured learning path
+- Certification recommendations
+- Practical application ideas
+
+## 💡 Hidden Strengths
+- Skills they might not realize they have
+- Transferable abilities from their background
+- Unique combinations that set them apart
+
+Provide honest, constructive feedback with specific improvement strategies.`
                 },
                 {
                     id: 'match-jobs-btn',
                     elementId: 'matched-jobs',
-                    prompt: "Match job opportunities for a user with bio: '${bio}', skills: '${skills}', and career goals: '${careerGoals}'. Provide job titles, required skills, and match strength."
+                    prompt: `Act as an expert recruitment consultant with access to current job market data. Match this candidate with ideal job opportunities:
+
+**Candidate Profile:**
+- Background: ${bio}
+- Skills: ${skills}
+- Career Goals: ${careerGoals}
+- Location: ${location}
+- Experience: ${experience}
+
+## 🎯 Perfect Matches (90%+ Compatibility)
+
+**Job 1: [Specific Role Title]**
+- Company Type: [Industry/size]
+- Match Strength: X%
+- Why You're Perfect: [Specific skills/experience alignment]
+- Salary Range: $X - $Y
+- Key Requirements You Meet: [List 4-5]
+
+**Job 2: [Another Role]**
+[Same format]
+
+## 🚀 Stretch Opportunities (70-89% Match)
+- Roles slightly above current level
+- What you'd need to develop
+- Timeline to become competitive
+
+## 🔍 Job Search Strategy
+**Where to Look:**
+- Best job boards for their field
+- Company types to target
+- Networking opportunities
+
+**Application Tips:**
+- Keywords to include in resume
+- How to highlight relevant experience
+- Interview preparation focus
+
+## ⚡ Quick Application Wins
+- 3-5 companies actively hiring now
+- Roles they could apply to immediately
+- Referral opportunities in their network
+
+Be specific with real job titles, realistic salary ranges, and actionable search strategies.`
                 },
                 {
                     id: 'get-learning-resources-btn',
                     elementId: 'learning-resources',
-                    prompt: "Recommend learning resources (courses, books, communities) for a user with skills: '${skills}' and career goals: '${careerGoals}'."
+                    prompt: `You are a learning and development specialist. Create a comprehensive, personalized learning plan for this professional:
+
+**Learner Profile:**
+- Current Skills: ${skills}
+- Career Goals: ${careerGoals}
+- Professional Background: ${bio}
+- Experience Level: ${experience}
+
+## 🎯 Priority Learning Path
+
+**Immediate Focus (Next 30 Days):**
+- 3 most important skills to develop
+- Specific courses/resources for each
+- Expected time investment
+- Success metrics
+
+## 📚 Comprehensive Learning Resources
+
+**Online Courses:**
+- Coursera/edX/Udemy recommendations
+- Specific course names and instructors
+- Estimated completion time
+- Cost and value analysis
+
+**Books & Publications:**
+- Must-read books for their field
+- Industry publications to follow
+- Thought leaders to track
+
+**Hands-On Learning:**
+- Projects to build their portfolio
+- Volunteer opportunities
+- Freelance work to gain experience
+
+## 🎓 Certification Strategy
+- Most valuable certifications for their goals
+- Certification timeline and costs
+- ROI analysis for each certification
+
+## 🤝 Community Learning
+**Join These Communities:**
+- Professional associations
+- Online forums and groups
+- Local meetups and events
+- Mentorship opportunities
+
+## 📈 Learning Schedule
+**Weekly Plan:**
+- How many hours to dedicate
+- Best times for different types of learning
+- Progress tracking methods
+
+**Milestones:**
+- 30-day, 60-day, and 90-day goals
+- How to measure progress
+- When to reassess and adjust
+
+Focus on practical, actionable resources with clear timelines and expected outcomes.`
                 },
                 {
                     id: 'find-networking-opportunities-btn',
                     elementId: 'networking-opportunities',
-                    prompt: "Suggest networking opportunities (events, online communities, organizations) for a user with bio: '${bio}' and career goals: '${careerGoals}'."
+                    prompt: `You are a networking strategist and relationship-building expert. Create a personalized networking action plan:
+
+**Professional Profile:**
+- Background: ${bio}
+- Skills & Expertise: ${skills}
+- Career Goals: ${careerGoals}
+- Location: ${location}
+- Experience: ${experience}
+
+## 🎯 Strategic Networking Goals
+- What you want to achieve through networking
+- Types of connections that would benefit your career
+- Your unique value proposition to offer others
+
+## 🤝 High-Value Networking Opportunities
+
+**Industry Events & Conferences:**
+- Specific events relevant to their field
+- Virtual and in-person options
+- Cost-benefit analysis
+- How to maximize each event
+
+**Professional Associations:**
+- Industry-specific organizations to join
+- Local chapter opportunities
+- Leadership/volunteer positions available
+- Membership benefits and costs
+
+**Online Communities:**
+- LinkedIn groups to join and engage in
+- Industry forums and platforms
+- Social media strategies
+- Thought leadership opportunities
+
+## 🎪 Local Networking
+
+**Meetups & Events:**
+- Regular local networking groups
+- Industry-specific meetups
+- Professional development events
+- Coffee chat opportunities
+
+**Alumni Networks:**
+- School/university connections
+- Previous company networks
+- Professional program alumni
+
+## 💼 Strategic Relationship Building
+
+**Target Connections:**
+- Types of professionals to connect with
+- Specific roles/companies to target
+- How to research and approach them
+- Follow-up strategies
+
+**Networking Scripts:**
+- Introduction templates
+- Conversation starters
+- How to ask for advice/mentorship
+- Thank you and follow-up messages
+
+## 📅 90-Day Networking Plan
+**Month 1:** Foundation building
+**Month 2:** Active engagement
+**Month 3:** Relationship deepening
+
+Include specific actions, timelines, and success metrics for each phase.
+
+Make recommendations specific to their location, industry, and career level.`
                 }
             ];
 
-            // Set up event listeners for each button
             buttonConfigs.forEach(config => {
                 const button = document.getElementById(config.id);
                 if (button) {
@@ -920,10 +1604,8 @@
         function initializeSkillChart() {
             const skillChartCanvas = document.getElementById('skillAssessmentChart');
             if (skillChartCanvas) {
-                // Load saved skill data
                 loadSavedSkillChart();
 
-                // Set up skill assessment button
                 const skillButton = document.getElementById('assess-skills-btn');
                 if (skillButton) {
                     skillButton.addEventListener('click', () => getSkillAssessment(skillButton));
@@ -941,14 +1623,12 @@
                     updateSkillAssessmentChart(skillData);
                 } catch (error) {
                     console.error('Error loading saved skill data:', error);
-                    // Show default chart
                     updateSkillAssessmentChart({
                         labels: ['No Data'],
                         data: [0]
                     });
                 }
             } else {
-                // Show default chart and fetch new data
                 updateSkillAssessmentChart({
                     labels: ['Loading...'],
                     data: [0]
@@ -1014,14 +1694,13 @@
             });
         }
 
-        // Fetch skill assessment from Gemini API
+        // Enhanced skill assessment with better prompting
         async function getSkillAssessment(button) {
             if (!button) return;
 
             button.disabled = true;
             button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing Skills...';
 
-            // Get profile data
             let profile = window.userProfile ||
                 JSON.parse(sessionStorage.getItem('userProfile') || '{}') ||
             {
@@ -1031,13 +1710,20 @@
             };
 
             const prompt = `
-Based on this user profile, extract up to five key skills and rate each on a scale where 1=Beginner, 2=Intermediate, 3=Advanced.
-Return ONLY a JSON object in this exact format:
-{"labels":["skill1","skill2","skill3"],"data":[rating1,rating2,rating3]}
+You are a professional skills assessor. Based on the user profile below, extract exactly 5 key technical and soft skills, then rate each on a scale where 1=Beginner, 2=Intermediate, 3=Advanced.
 
-User bio: "${profile.bio}"
-Skills: "${profile.skills}"
-Career goals: "${profile.careerGoals}"
+User Profile:
+- Bio: "${profile.bio}"
+- Skills: "${profile.skills}"
+- Career Goals: "${profile.careerGoals}"
+
+Consider both explicitly mentioned skills and skills implied by their background and goals.
+
+Return ONLY a JSON object in this exact format (no other text):
+{"labels":["skill1","skill2","skill3","skill4","skill5"],"data":[rating1,rating2,rating3,rating4,rating5]}
+
+Example:
+{"labels":["JavaScript","Project Management","Communication","Data Analysis","Leadership"],"data":[3,2,3,2,1]}
     `.trim();
 
             try {
@@ -1059,18 +1745,13 @@ Career goals: "${profile.careerGoals}"
                 const data = await response.json();
                 const text = data.candidates[0].content.parts[0].text;
 
-                // Extract JSON from response
                 const jsonMatch = text.match(/\{[\s\S]*\}/);
                 if (jsonMatch) {
                     const skillData = JSON.parse(jsonMatch[0]);
 
-                    // Validate data structure
                     if (skillData.labels && skillData.data && Array.isArray(skillData.labels) && Array.isArray(skillData.data)) {
-                        // Save skill data
                         window.dashboardContent.skillData = skillData;
                         sessionStorage.setItem('skillData', JSON.stringify(skillData));
-
-                        // Update chart
                         updateSkillAssessmentChart(skillData);
                     } else {
                         throw new Error('Invalid skill data format');
@@ -1081,8 +1762,6 @@ Career goals: "${profile.careerGoals}"
 
             } catch (error) {
                 console.error('Skill assessment error:', error);
-
-                // Show fallback chart
                 const fallbackData = {
                     labels: ['Error'],
                     data: [0]
@@ -1094,7 +1773,7 @@ Career goals: "${profile.careerGoals}"
                 resetButtonText(button);
             }
         }
-    </script>
+</script>
 
 
 </body>
