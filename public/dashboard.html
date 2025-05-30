@@ -368,407 +368,447 @@
             background: url('https://img.icons8.com/ios-glyphs/30/ff4081/star--v1.png') no-repeat;
             background-size: contain;
         }
+
         /* Enhanced Content Styling */
-.enhanced-content {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.7;
-    color: #333;
-    max-width: 100%;
-    animation: fadeInUp 0.6s ease-out;
-}
+        .enhanced-content {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 100%;
+            animation: fadeInUp 0.6s ease-out;
+        }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-/* Headers */
-.primary-header {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 3px solid #3498db;
-    position: relative;
-    animation: slideInLeft 0.8s ease-out;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.main-header {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #34495e;
-    margin: 25px 0 15px 0;
-    padding: 10px 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-size: 200% 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    animation: gradientShift 3s ease infinite;
-}
+        /* Headers */
+        .primary-header {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+            animation: slideInLeft 0.8s ease-out;
+        }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        .main-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #34495e;
+            margin: 25px 0 15px 0;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: 200% 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            animation: gradientShift 3s ease infinite;
+        }
 
-.section-header {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #2980b9;
-    margin: 20px 0 12px 0;
-    padding-left: 15px;
-    border-left: 4px solid #3498db;
-    background: rgba(52, 152, 219, 0.05);
-    padding: 12px 15px;
-    border-radius: 0 8px 8px 0;
-    transition: all 0.3s ease;
-}
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
 
-.section-header:hover {
-    background: rgba(52, 152, 219, 0.1);
-    transform: translateX(5px);
-}
+            50% {
+                background-position: 100% 50%;
+            }
 
-/* Text Styling */
-.highlight-text {
-    background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 600;
-    color: #2c3e50;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
+            100% {
+                background-position: 0% 50%;
+            }
+        }
 
-.highlight-text:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
+        .section-header {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #2980b9;
+            margin: 20px 0 12px 0;
+            padding-left: 15px;
+            border-left: 4px solid #3498db;
+            background: rgba(52, 152, 219, 0.05);
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
 
-.italic-text {
-    color: #7f8c8d;
-    font-style: italic;
-    position: relative;
-}
+        .section-header:hover {
+            background: rgba(52, 152, 219, 0.1);
+            transform: translateX(5px);
+        }
 
-/* List Items */
-.numbered-item, .bullet-item {
-    display: flex;
-    align-items: flex-start;
-    margin: 12px 0;
-    padding: 15px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 10px;
-    border-left: 4px solid #28a745;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
+        /* Text Styling */
+        .highlight-text {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
 
-.numbered-item:hover, .bullet-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    border-left-color: #17a2b8;
-}
+        .highlight-text:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
 
-.numbered-item::before, .bullet-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, #28a745, #20c997);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
+        .italic-text {
+            color: #7f8c8d;
+            font-style: italic;
+            position: relative;
+        }
 
-.numbered-item:hover::before, .bullet-item:hover::before {
-    transform: scaleX(1);
-}
+        /* List Items */
+        .numbered-item,
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 12px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-.number-badge, .bullet-icon {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: bold;
-    margin-right: 15px;
-    flex-shrink: 0;
-    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
-    transition: all 0.3s ease;
-}
+        .numbered-item:hover,
+        .bullet-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            border-left-color: #17a2b8;
+        }
 
-.bullet-icon {
-    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
-    box-shadow: 0 2px 6px rgba(23, 162, 184, 0.3);
-}
+        .numbered-item::before,
+        .bullet-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
 
-.numbered-item:hover .number-badge, .bullet-item:hover .bullet-icon {
-    transform: rotate(360deg) scale(1.1);
-}
+        .numbered-item:hover::before,
+        .bullet-item:hover::before {
+            transform: scaleX(1);
+        }
 
-.item-content {
-    flex: 1;
-    font-size: 15px;
-    line-height: 1.6;
-    color: #495057;
-}
+        .number-badge,
+        .bullet-icon {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3);
+            transition: all 0.3s ease;
+        }
 
-/* Key-Value Pairs */
-.key-value-pair {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 10px 0;
-    padding: 12px 18px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    position: relative;
-}
+        .bullet-icon {
+            background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+            box-shadow: 0 2px 6px rgba(23, 162, 184, 0.3);
+        }
 
-.key-value-pair:hover {
-    border-color: #6c757d;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-    transform: translateY(-1px);
-}
+        .numbered-item:hover .number-badge,
+        .bullet-item:hover .bullet-icon {
+            transform: rotate(360deg) scale(1.1);
+        }
 
-.key-label {
-    font-weight: 600;
-    color: #495057;
-    margin-right: 10px;
-    min-width: 120px;
-    display: inline-block;
-    position: relative;
-}
+        .item-content {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #495057;
+        }
 
-.key-label::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #007bff, #6610f2);
-    transition: width 0.3s ease;
-}
+        /* Key-Value Pairs */
+        .key-value-pair {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 0;
+            padding: 12px 18px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
 
-.key-value-pair:hover .key-label::after {
-    width: 100%;
-}
+        .key-value-pair:hover {
+            border-color: #6c757d;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+        }
 
-.value-text {
-    color: #6c757d;
-    flex: 1;
-    line-height: 1.5;
-}
+        .key-label {
+            font-weight: 600;
+            color: #495057;
+            margin-right: 10px;
+            min-width: 120px;
+            display: inline-block;
+            position: relative;
+        }
 
-/* Spacing */
-.paragraph-break {
-    height: 20px;
-}
+        .key-label::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #007bff, #6610f2);
+            transition: width 0.3s ease;
+        }
 
-/* Dark Mode Support */
-.dark-mode .enhanced-content {
-    color: #e9ecef;
-}
+        .key-value-pair:hover .key-label::after {
+            width: 100%;
+        }
 
-.dark-mode .primary-header {
-    color: #74b9ff;
-    border-bottom-color: #0984e3;
-}
+        .value-text {
+            color: #6c757d;
+            flex: 1;
+            line-height: 1.5;
+        }
 
-.dark-mode .section-header {
-    color: #74b9ff;
-    border-left-color: #0984e3;
-    background: rgba(116, 185, 255, 0.1);
-}
+        /* Spacing */
+        .paragraph-break {
+            height: 20px;
+        }
 
-.dark-mode .numbered-item, 
-.dark-mode .bullet-item {
-    background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
-    border-left-color: #48bb78;
-}
+        /* Dark Mode Support */
+        .dark-mode .enhanced-content {
+            color: #e9ecef;
+        }
 
-.dark-mode .key-value-pair {
-    background: rgba(45, 55, 72, 0.8);
-    border-color: #4a5568;
-}
+        .dark-mode .primary-header {
+            color: #74b9ff;
+            border-bottom-color: #0984e3;
+        }
 
-.dark-mode .key-label {
-    color: #cbd5e0;
-}
+        .dark-mode .section-header {
+            color: #74b9ff;
+            border-left-color: #0984e3;
+            background: rgba(116, 185, 255, 0.1);
+        }
 
-.dark-mode .value-text {
-    color: #a0aec0;
-}
+        .dark-mode .numbered-item,
+        .dark-mode .bullet-item {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            border-left-color: #48bb78;
+        }
 
-.dark-mode .item-content {
-    color: #cbd5e0;
-}
+        .dark-mode .key-value-pair {
+            background: rgba(45, 55, 72, 0.8);
+            border-color: #4a5568;
+        }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .enhanced-content {
-        font-size: 14px;
-    }
-    
-    .primary-header {
-        font-size: 1.5rem;
-    }
-    
-    .main-header {
-        font-size: 1.3rem;
-    }
-    
-    .section-header {
-        font-size: 1.1rem;
-        padding: 10px 12px;
-    }
-    
-    .numbered-item, .bullet-item {
-        padding: 12px;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .number-badge, .bullet-icon {
-        margin-bottom: 8px;
-        margin-right: 0;
-    }
-    
-    .key-value-pair {
-        flex-direction: column;
-        padding: 10px 15px;
-    }
-    
-    .key-label {
-        min-width: auto;
-        margin-bottom: 5px;
-    }
-}
+        .dark-mode .key-label {
+            color: #cbd5e0;
+        }
 
-/* Loading Animation */
-.card.loading {
-    position: relative;
-    overflow: hidden;
-}
+        .dark-mode .value-text {
+            color: #a0aec0;
+        }
 
-.card.loading::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: shimmer 2s infinite;
-    z-index: 1;
-}
+        .dark-mode .item-content {
+            color: #cbd5e0;
+        }
 
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .enhanced-content {
+                font-size: 14px;
+            }
 
-/* Success Animation */
-.content-loaded {
-    animation: contentAppear 0.8s ease-out;
-}
+            .primary-header {
+                font-size: 1.5rem;
+            }
 
-@keyframes contentAppear {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+            .main-header {
+                font-size: 1.3rem;
+            }
 
-/* Scroll Animations */
-.enhanced-content > * {
-    animation: slideInFromBottom 0.6s ease-out;
-    animation-fill-mode: both;
-}
+            .section-header {
+                font-size: 1.1rem;
+                padding: 10px 12px;
+            }
 
-.enhanced-content > *:nth-child(1) { animation-delay: 0.1s; }
-.enhanced-content > *:nth-child(2) { animation-delay: 0.2s; }
-.enhanced-content > *:nth-child(3) { animation-delay: 0.3s; }
-.enhanced-content > *:nth-child(4) { animation-delay: 0.4s; }
-.enhanced-content > *:nth-child(5) { animation-delay: 0.5s; }
+            .numbered-item,
+            .bullet-item {
+                padding: 12px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
-@keyframes slideInFromBottom {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+            .number-badge,
+            .bullet-icon {
+                margin-bottom: 8px;
+                margin-right: 0;
+            }
 
-/* Interactive Elements */
-.interactive-tip {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 15px 20px;
-    border-radius: 12px;
-    margin: 20px 0;
-    position: relative;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
+            .key-value-pair {
+                flex-direction: column;
+                padding: 10px 15px;
+            }
 
-.interactive-tip:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-}
+            .key-label {
+                min-width: auto;
+                margin-bottom: 5px;
+            }
+        }
 
-.interactive-tip::before {
-    content: '💡';
-    font-size: 1.2em;
-    margin-right: 10px;
-}
+        /* Loading Animation */
+        .card.loading {
+            position: relative;
+            overflow: hidden;
+        }
 
-/* Print Styles */
-@media print {
-    .enhanced-content {
-        color: #000 !important;
-        background: white !important;
-    }
-    
-    .numbered-item, .bullet-item {
-        background: white !important;
-        border: 1px solid #ccc !important;
-        box-shadow: none !important;
-    }
-    
-    .highlight-text {
-        background: #f0f0f0 !important;
-        color: #000 !important;
-    }
-}
+        .card.loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        /* Success Animation */
+        .content-loaded {
+            animation: contentAppear 0.8s ease-out;
+        }
+
+        @keyframes contentAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scroll Animations */
+        .enhanced-content>* {
+            animation: slideInFromBottom 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .enhanced-content>*:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .enhanced-content>*:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .enhanced-content>*:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .enhanced-content>*:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .enhanced-content>*:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Interactive Elements */
+        .interactive-tip {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .interactive-tip:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .interactive-tip::before {
+            content: '💡';
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        /* Print Styles */
+        @media print {
+            .enhanced-content {
+                color: #000 !important;
+                background: white !important;
+            }
+
+            .numbered-item,
+            .bullet-item {
+                background: white !important;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+            }
+
+            .highlight-text {
+                background: #f0f0f0 !important;
+                color: #000 !important;
+            }
+        }
     </style>
 </head>
 
@@ -945,9 +985,9 @@
 
     <script src="app.js" defer></script>
 
-   <script>
-        // Dashboard content storage in memory
-        window.dashboardContent = {
+    <script>
+        // Dashboard content storage in memory with fallback
+        window.dashboardContent = window.dashboardContent || {
             careerRecommendations: null,
             jobProspects: null,
             skillAssessment: null,
@@ -957,263 +997,435 @@
             skillData: null
         };
 
-        // Check login status on page load
+        // Add error handling and retry mechanism for API calls
+        let apiCallInProgress = new Set();
+        const MAX_RETRIES = 3;
+        const RETRY_DELAY = 2000;
+
+        // Check login status on page load with error handling
         document.addEventListener('DOMContentLoaded', function () {
-            console.log('DOM loaded, initializing dashboard...');
+            try {
+                console.log('DOM loaded, initializing dashboard...');
 
-            // Set user as logged in for dashboard page
-            sessionStorage.setItem('isLoggedIn', 'true');
-            const username = sessionStorage.getItem('username') || 'User';
+                // Set user as logged in for dashboard page
+                if (typeof (Storage) !== "undefined") {
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                    const username = sessionStorage.getItem('username') || 'User';
 
-            // Update username display in navbar and profile
-            document.querySelectorAll('.username').forEach(el => {
-                el.textContent = username;
-            });
-
-            // Show logged-in navigation items
-            document.querySelectorAll('.logged-in-nav').forEach(el => {
-                el.style.display = 'block';
-            });
-            document.querySelectorAll('.logged-out-nav').forEach(el => {
-                el.style.display = 'none';
-            });
-
-            // Check and apply theme
-            const darkMode = sessionStorage.getItem('darkMode') !== 'false';
-            const modeSwitch = document.getElementById('modeSwitch');
-            if (modeSwitch) {
-                if (darkMode) {
-                    document.body.classList.add('dark-mode');
-                    document.body.classList.remove('light-mode');
-                    modeSwitch.innerHTML = '<i class="fas fa-moon"></i>';
-                } else {
-                    document.body.classList.add('light-mode');
-                    document.body.classList.remove('dark-mode');
-                    modeSwitch.innerHTML = '<i class="fas fa-sun"></i>';
+                    // Update username display in navbar and profile
+                    document.querySelectorAll('.username').forEach(el => {
+                        if (el) el.textContent = username;
+                    });
                 }
+
+                // Show logged-in navigation items
+                document.querySelectorAll('.logged-in-nav').forEach(el => {
+                    if (el) el.style.display = 'block';
+                });
+                document.querySelectorAll('.logged-out-nav').forEach(el => {
+                    if (el) el.style.display = 'none';
+                });
+
+                // Check and apply theme with error handling
+                try {
+                    const darkMode = !sessionStorage.getItem('darkMode') || sessionStorage.getItem('darkMode') !== 'false';
+                    const modeSwitch = document.getElementById('modeSwitch');
+                    if (modeSwitch) {
+                        if (darkMode) {
+                            document.body.classList.add('dark-mode');
+                            document.body.classList.remove('light-mode');
+                            modeSwitch.innerHTML = '<i class="fas fa-moon"></i>';
+                        } else {
+                            document.body.classList.add('light-mode');
+                            document.body.classList.remove('dark-mode');
+                            modeSwitch.innerHTML = '<i class="fas fa-sun"></i>';
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Theme initialization error:', e);
+                }
+
+                // Load saved content and profile with error handling
+                setTimeout(() => {
+                    try {
+                        loadSavedContent();
+                        loadUserProfile();
+                        setupButtonListeners();
+                        initializeSkillChart();
+                    } catch (e) {
+                        console.error('Initialization error:', e);
+                        // Retry initialization after delay
+                        setTimeout(() => {
+                            try {
+                                setupButtonListeners();
+                                initializeSkillChart();
+                            } catch (retryError) {
+                                console.error('Retry initialization failed:', retryError);
+                            }
+                        }, 1000);
+                    }
+                }, 100);
+
+            } catch (error) {
+                console.error('DOMContentLoaded error:', error);
             }
-
-            // Load saved content and profile
-            loadSavedContent();
-            loadUserProfile();
-
-            // Set up button event listeners
-            setupButtonListeners();
-
-            // Initialize skill chart
-            initializeSkillChart();
         });
 
-        // Toggle between light and dark mode
+        // Toggle between light and dark mode with error handling
         function toggleMode() {
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            const modeSwitch = document.getElementById('modeSwitch');
+            try {
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const modeSwitch = document.getElementById('modeSwitch');
 
-            if (isDarkMode) {
-                document.body.classList.remove('dark-mode');
-                document.body.classList.add('light-mode');
-                if (modeSwitch) modeSwitch.innerHTML = '<i class="fas fa-sun"></i>';
-                sessionStorage.setItem('darkMode', 'false');
-            } else {
-                document.body.classList.remove('light-mode');
-                document.body.classList.add('dark-mode');
-                if (modeSwitch) modeSwitch.innerHTML = '<i class="fas fa-moon"></i>';
-                sessionStorage.setItem('darkMode', 'true');
+                if (isDarkMode) {
+                    document.body.classList.remove('dark-mode');
+                    document.body.classList.add('light-mode');
+                    if (modeSwitch) modeSwitch.innerHTML = '<i class="fas fa-sun"></i>';
+                    if (typeof (Storage) !== "undefined") {
+                        sessionStorage.setItem('darkMode', 'false');
+                    }
+                } else {
+                    document.body.classList.remove('light-mode');
+                    document.body.classList.add('dark-mode');
+                    if (modeSwitch) modeSwitch.innerHTML = '<i class="fas fa-moon"></i>';
+                    if (typeof (Storage) !== "undefined") {
+                        sessionStorage.setItem('darkMode', 'true');
+                    }
+                }
+            } catch (error) {
+                console.error('Toggle mode error:', error);
             }
         }
 
-        // Handle logout
+        // Handle logout with error handling
         function logout() {
-            sessionStorage.setItem('isLoggedIn', 'false');
-            window.location.href = 'login.html';
+            try {
+                if (typeof (Storage) !== "undefined") {
+                    sessionStorage.setItem('isLoggedIn', 'false');
+                }
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = 'login.html';
+            }
         }
 
-        // Set loading state for buttons
+        // Set loading state for buttons with null checks
         function setLoadingState(button, loading) {
             if (!button) return;
 
-            const cardBody = button.closest('.card-body');
-            if (loading) {
-                button.classList.add('loading');
-                if (cardBody) cardBody.closest('.card').classList.add('loading');
-                button.disabled = true;
-                button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-            } else {
-                button.classList.remove('loading');
-                if (cardBody) cardBody.closest('.card').classList.remove('loading');
-                button.disabled = false;
-                resetButtonText(button);
+            try {
+                const cardBody = button.closest('.card-body');
+                if (loading) {
+                    button.classList.add('loading');
+                    if (cardBody) {
+                        const card = cardBody.closest('.card');
+                        if (card) card.classList.add('loading');
+                    }
+                    button.disabled = true;
+                    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                } else {
+                    button.classList.remove('loading');
+                    if (cardBody) {
+                        const card = cardBody.closest('.card');
+                        if (card) card.classList.remove('loading');
+                    }
+                    button.disabled = false;
+                    resetButtonText(button);
+                }
+            } catch (error) {
+                console.error('setLoadingState error:', error);
             }
         }
 
-        // Reset button text based on button ID
+        // Reset button text based on button ID with error handling
         function resetButtonText(button) {
-            const buttonTexts = {
-                'get-career-recommendations-btn': 'Get Career Recommendations',
-                'get-job-prospects-btn': 'Get Job Prospects',
-                'assess-skills-btn': 'Assess Skills',
-                'match-jobs-btn': 'Match Jobs',
-                'get-learning-resources-btn': 'Get Learning Resources',
-                'find-networking-opportunities-btn': 'Find Networking Opportunities'
-            };
+            if (!button) return;
 
-            const originalText = buttonTexts[button.id];
-            if (originalText) {
-                button.innerHTML = originalText;
+            try {
+                const buttonTexts = {
+                    'get-career-recommendations-btn': 'Get Recommendations',
+                    'get-job-prospects-btn': 'Get Job Prospects',
+                    'assess-skills-btn': 'Assess Skills',
+                    'match-jobs-btn': 'Match Jobs',
+                    'get-learning-resources-btn': 'Get Resources',
+                    'find-networking-opportunities-btn': 'Find Opportunities'
+                };
+
+                const originalText = buttonTexts[button.id];
+                if (originalText) {
+                    button.innerHTML = originalText;
+                }
+            } catch (error) {
+                console.error('resetButtonText error:', error);
             }
         }
 
-        // Enhanced text formatting function
+        // Enhanced text formatting function with safety checks
         function formatText(text) {
-            if (!text) return '';
+            if (!text || typeof text !== 'string') return '';
 
-            // Clean up the text first
-            text = text.trim();
+            try {
+                // Clean up the text first
+                text = text.trim();
 
-            // Convert markdown-style formatting
-            text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="highlight-text">$1</strong>');
-            text = text.replace(/\*(.*?)\*/g, '<em class="italic-text">$1</em>');
-            
-            // Handle headers
-            text = text.replace(/^### (.*$)/gm, '<h3 class="section-header">$1</h3>');
-            text = text.replace(/^## (.*$)/gm, '<h2 class="main-header">$1</h2>');
-            text = text.replace(/^# (.*$)/gm, '<h1 class="primary-header">$1</h1>');
+                // Convert markdown-style formatting
+                text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="highlight-text">$1</strong>');
+                text = text.replace(/\*(.*?)\*/g, '<em class="italic-text">$1</em>');
 
-            // Handle numbered lists with enhanced styling
-            text = text.replace(/^\d+\.\s(.+)$/gm, '<div class="numbered-item"><span class="number-badge">•</span><span class="item-content">$1</span></div>');
-            
-            // Handle bullet points with enhanced styling
-            text = text.replace(/^[-*]\s(.+)$/gm, '<div class="bullet-item"><span class="bullet-icon">→</span><span class="item-content">$1</span></div>');
-            
-            // Handle key-value pairs (e.g., "Role: Description")
-            text = text.replace(/^([A-Za-z\s]+):\s(.+)$/gm, '<div class="key-value-pair"><span class="key-label">$1:</span><span class="value-text">$2</span></div>');
-            
-            // Convert line breaks to proper spacing
-            text = text.replace(/\n\n/g, '<div class="paragraph-break"></div>');
-            text = text.replace(/\n/g, '<br>');
+                // Handle headers
+                text = text.replace(/^### (.*$)/gm, '<h3 class="section-header">$1</h3>');
+                text = text.replace(/^## (.*$)/gm, '<h2 class="main-header">$1</h2>');
+                text = text.replace(/^# (.*$)/gm, '<h1 class="primary-header">$1</h1>');
 
-            // Wrap everything in a styled container
-            return `<div class="enhanced-content">${text}</div>`;
-        }
+                // Handle numbered lists with enhanced styling
+                text = text.replace(/^\d+\.\s(.+)$/gm, '<div class="numbered-item"><span class="number-badge">•</span><span class="item-content">$1</span></div>');
 
-        // Load saved user profile from multiple sources
-        function loadUserProfile() {
-            console.log('Loading user profile...');
+                // Handle bullet points with enhanced styling
+                text = text.replace(/^[-*]\s(.+)$/gm, '<div class="bullet-item"><span class="bullet-icon">→</span><span class="item-content">$1</span></div>');
 
-            let profile = window.userProfile ||
-                JSON.parse(sessionStorage.getItem('userProfile') || 'null') ||
-            {
-                bio: sessionStorage.getItem('bio') || '',
-                skills: sessionStorage.getItem('skills') || '',
-                careerGoals: sessionStorage.getItem('careerGoals') || '',
-                location: sessionStorage.getItem('location') || '',
-                experience: sessionStorage.getItem('experience') || ''
-            };
+                // Handle key-value pairs (e.g., "Role: Description")
+                text = text.replace(/^([A-Za-z\s]+):\s(.+)$/gm, '<div class="key-value-pair"><span class="key-label">$1:</span><span class="value-text">$2</span></div>');
 
-            if (profile && (profile.bio || profile.skills)) {
-                window.userProfile = profile;
-                console.log('Profile loaded:', profile);
-            } else {
-                console.log('No profile data found');
+                // Convert line breaks to proper spacing
+                text = text.replace(/\n\n/g, '<div class="paragraph-break"></div>');
+                text = text.replace(/\n/g, '<br>');
+
+                // Wrap everything in a styled container
+                return `<div class="enhanced-content">${text}</div>`;
+            } catch (error) {
+                console.error('formatText error:', error);
+                return `<div class="enhanced-content">${text}</div>`;
             }
         }
 
-        // Load saved AI-generated content on page refresh
-        function loadSavedContent() {
-            console.log('Loading saved content...');
+        // Load saved user profile from multiple sources with error handling
+        function loadUserProfile() {
+            try {
+                console.log('Loading user profile...');
 
-            const contentMappings = [
-                { id: 'career-recommendations', key: 'careerRecommendations' },
-                { id: 'job-prospects', key: 'jobProspects' },
-                { id: 'skill-assessment', key: 'skillAssessment' },
-                { id: 'matched-jobs', key: 'matchedJobs' },
-                { id: 'learning-resources', key: 'learningResources' },
-                { id: 'networking-opportunities', key: 'networkingOpportunities' }
-            ];
+                let profile = null;
 
-            contentMappings.forEach(({ id, key }) => {
-                const savedContent = window.dashboardContent[key] || sessionStorage.getItem(key);
-                const element = document.getElementById(id);
-
-                if (savedContent && element) {
-                    element.innerHTML = savedContent;
-                    console.log(`Loaded content for ${id}`);
+                // Try to get profile from window object first
+                if (window.userProfile) {
+                    profile = window.userProfile;
                 }
-            });
+                // Then try sessionStorage
+                else if (typeof (Storage) !== "undefined") {
+                    try {
+                        const storedProfile = sessionStorage.getItem('userProfile');
+                        if (storedProfile && storedProfile !== 'null') {
+                            profile = JSON.parse(storedProfile);
+                        }
+                    } catch (e) {
+                        console.warn('Error parsing stored profile:', e);
+                    }
+
+                    // Fallback to individual items
+                    if (!profile || (!profile.bio && !profile.skills)) {
+                        profile = {
+                            bio: sessionStorage.getItem('bio') || '',
+                            skills: sessionStorage.getItem('skills') || '',
+                            careerGoals: sessionStorage.getItem('careerGoals') || '',
+                            location: sessionStorage.getItem('location') || '',
+                            experience: sessionStorage.getItem('experience') || ''
+                        };
+                    }
+                }
+
+                if (profile && (profile.bio || profile.skills)) {
+                    window.userProfile = profile;
+                    console.log('Profile loaded:', profile);
+                } else {
+                    console.log('No profile data found');
+                }
+            } catch (error) {
+                console.error('loadUserProfile error:', error);
+            }
         }
 
-        // Enhanced API call function with improved prompts
-        async function callGeminiAPI(promptTemplate, elementId, button) {
-            console.log(`Calling Gemini API for ${elementId}`);
+        // Load saved AI-generated content on page refresh with error handling
+        function loadSavedContent() {
+            try {
+                console.log('Loading saved content...');
 
-            setLoadingState(button, true);
+                const contentMappings = [
+                    { id: 'career-recommendations', key: 'careerRecommendations' },
+                    { id: 'job-prospects', key: 'jobProspects' },
+                    { id: 'skill-assessment', key: 'skillAssessment' },
+                    { id: 'matched-jobs', key: 'matchedJobs' },
+                    { id: 'learning-resources', key: 'learningResources' },
+                    { id: 'networking-opportunities', key: 'networkingOpportunities' }
+                ];
 
-            let profile = window.userProfile ||
-                JSON.parse(sessionStorage.getItem('userProfile') || '{}') ||
-            {
-                bio: sessionStorage.getItem('bio') || 'Not provided',
-                skills: sessionStorage.getItem('skills') || 'Not provided',
-                careerGoals: sessionStorage.getItem('careerGoals') || 'Not provided'
-            };
+                contentMappings.forEach(({ id, key }) => {
+                    try {
+                        let savedContent = null;
 
-            console.log('Using profile:', profile);
+                        // Check window object first
+                        if (window.dashboardContent && window.dashboardContent[key]) {
+                            savedContent = window.dashboardContent[key];
+                        }
+                        // Then check sessionStorage
+                        else if (typeof (Storage) !== "undefined") {
+                            savedContent = sessionStorage.getItem(key);
+                        }
 
-            const hasProfileData = profile && (
-                (profile.bio && profile.bio !== 'Not provided') ||
-                (profile.skills && profile.skills !== 'Not provided') ||
-                (profile.careerGoals && profile.careerGoals !== 'Not provided')
-            );
+                        const element = document.getElementById(id);
+                        if (savedContent && element) {
+                            element.innerHTML = savedContent;
+                            console.log(`Loaded content for ${id}`);
+                        }
+                    } catch (e) {
+                        console.warn(`Error loading content for ${id}:`, e);
+                    }
+                });
+            } catch (error) {
+                console.error('loadSavedContent error:', error);
+            }
+        }
 
-            if (!hasProfileData) {
-                const element = document.getElementById(elementId);
-                if (element) {
-                    element.innerHTML = '<div class="alert alert-warning">Please complete your profile first to get personalized recommendations.</div>';
-                }
-                setLoadingState(button, false);
+        // Enhanced API call function with retry mechanism and better error handling
+        async function callGeminiAPI(promptTemplate, elementId, button, retryCount = 0) {
+            const apiKey = elementId + '-' + Date.now();
+
+            // Prevent multiple simultaneous calls for the same element
+            if (apiCallInProgress.has(elementId)) {
+                console.log(`API call already in progress for ${elementId}`);
                 return;
             }
 
-            const prompt = promptTemplate
-                .replace('${bio}', profile.bio || 'Not provided')
-                .replace('${skills}', profile.skills || 'Not provided')
-                .replace('${careerGoals}', profile.careerGoals || 'Not provided')
-                .replace('${location}', profile.location || 'Not specified')
-                .replace('${experience}', profile.experience || 'Not specified');
-
-            console.log('Generated prompt:', prompt);
-
             try {
+                console.log(`Calling Gemini API for ${elementId} (attempt ${retryCount + 1})`);
+                apiCallInProgress.add(elementId);
+                setLoadingState(button, true);
+
+                let profile = null;
+
+                // Get profile with fallbacks
+                if (window.userProfile) {
+                    profile = window.userProfile;
+                } else if (typeof (Storage) !== "undefined") {
+                    try {
+                        const storedProfile = sessionStorage.getItem('userProfile');
+                        profile = storedProfile ? JSON.parse(storedProfile) : null;
+                    } catch (e) {
+                        console.warn('Profile parsing error:', e);
+                    }
+
+                    if (!profile) {
+                        profile = {
+                            bio: sessionStorage.getItem('bio') || 'Not provided',
+                            skills: sessionStorage.getItem('skills') || 'Not provided',
+                            careerGoals: sessionStorage.getItem('careerGoals') || 'Not provided',
+                            location: sessionStorage.getItem('location') || 'Not specified',
+                            experience: sessionStorage.getItem('experience') || 'Not specified'
+                        };
+                    }
+                }
+
+                if (!profile) {
+                    profile = {
+                        bio: 'Not provided',
+                        skills: 'Not provided',
+                        careerGoals: 'Not provided',
+                        location: 'Not specified',
+                        experience: 'Not specified'
+                    };
+                }
+
+                console.log('Using profile:', profile);
+
+                const hasProfileData = profile && (
+                    (profile.bio && profile.bio !== 'Not provided') ||
+                    (profile.skills && profile.skills !== 'Not provided') ||
+                    (profile.careerGoals && profile.careerGoals !== 'Not provided')
+                );
+
+                if (!hasProfileData) {
+                    const element = document.getElementById(elementId);
+                    if (element) {
+                        element.innerHTML = '<div class="alert alert-warning">Please complete your profile first to get personalized recommendations.</div>';
+                    }
+                    return;
+                }
+
+                const prompt = promptTemplate
+                    .replace(/\$\{bio\}/g, profile.bio || 'Not provided')
+                    .replace(/\$\{skills\}/g, profile.skills || 'Not provided')
+                    .replace(/\$\{careerGoals\}/g, profile.careerGoals || 'Not provided')
+                    .replace(/\$\{location\}/g, profile.location || 'Not specified')
+                    .replace(/\$\{experience\}/g, profile.experience || 'Not specified');
+
+                console.log('Generated prompt length:', prompt.length);
+
+                // Add timeout to fetch request
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
                 const response = await fetch(
                     `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyDNeMYy5q3mGJv7-Bj6KMwPmDL6f51RJ9s`,
                     {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
                         body: JSON.stringify({
                             contents: [{ parts: [{ text: prompt }] }],
+                            generationConfig: {
+                                temperature: 0.7,
+                                topK: 40,
+                                topP: 0.95,
+                                maxOutputTokens: 2048,
+                            }
                         }),
+                        signal: controller.signal
                     }
                 );
+
+                clearTimeout(timeoutId);
 
                 console.log('API Response status:', response.status);
 
                 if (!response.ok) {
-                    throw new Error(`API request failed with status: ${response.status}`);
+                    if (response.status === 429 && retryCount < MAX_RETRIES) {
+                        // Rate limit - retry with exponential backoff
+                        const delay = RETRY_DELAY * Math.pow(2, retryCount);
+                        console.log(`Rate limited, retrying in ${delay}ms...`);
+                        setTimeout(() => {
+                            callGeminiAPI(promptTemplate, elementId, button, retryCount + 1);
+                        }, delay);
+                        return;
+                    }
+                    throw new Error(`API request failed with status: ${response.status} - ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                console.log('API Response data:', data);
+                console.log('API Response received');
 
-                if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+                if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0]) {
                     throw new Error('Invalid API response format');
                 }
 
                 const text = data.candidates[0].content.parts[0].text;
+                if (!text || text.trim() === '') {
+                    throw new Error('Empty response from API');
+                }
+
                 const formattedText = formatText(text);
 
+                // Save content with error handling
                 const contentKey = getContentKey(elementId);
                 if (contentKey) {
                     window.dashboardContent[contentKey] = formattedText;
-                    sessionStorage.setItem(contentKey, formattedText);
+                    if (typeof (Storage) !== "undefined") {
+                        try {
+                            sessionStorage.setItem(contentKey, formattedText);
+                        } catch (storageError) {
+                            console.warn('Storage error:', storageError);
+                        }
+                    }
                 }
 
                 const element = document.getElementById(elementId);
@@ -1224,11 +1436,30 @@
 
             } catch (error) {
                 console.error('API Error:', error);
+
+                // Retry logic
+                if (retryCount < MAX_RETRIES && !error.name === 'AbortError') {
+                    console.log(`Retrying API call for ${elementId} (${retryCount + 1}/${MAX_RETRIES})`);
+                    setTimeout(() => {
+                        callGeminiAPI(promptTemplate, elementId, button, retryCount + 1);
+                    }, RETRY_DELAY * (retryCount + 1));
+                    return;
+                }
+
                 const element = document.getElementById(elementId);
                 if (element) {
-                    element.innerHTML = `<div class="alert alert-danger">Error loading data: ${error.message}. Please try again.</div>`;
+                    let errorMessage = 'Error loading data. Please try again.';
+                    if (error.name === 'AbortError') {
+                        errorMessage = 'Request timed out. Please try again.';
+                    } else if (error.message.includes('429')) {
+                        errorMessage = 'Too many requests. Please wait a moment and try again.';
+                    } else if (error.message.includes('network') || error.message.includes('fetch')) {
+                        errorMessage = 'Network error. Please check your connection and try again.';
+                    }
+                    element.innerHTML = `<div class="alert alert-danger">${errorMessage}</div>`;
                 }
             } finally {
+                apiCallInProgress.delete(elementId);
                 setLoadingState(button, false);
             }
         }
@@ -1245,22 +1476,24 @@
             return mappings[elementId] || null;
         }
 
-        // Setup all button event listeners with enhanced prompts
+        // Setup all button event listeners with enhanced error handling
         function setupButtonListeners() {
-            console.log('Setting up button listeners...');
+            try {
+                console.log('Setting up button listeners...');
 
-            const buttonConfigs = [
-                {
-                    id: 'get-career-recommendations-btn',
-                    elementId: 'career-recommendations',
-                    prompt: `Act as a senior career counselor with 15+ years of experience. Based on the user profile below, provide personalized career recommendations that are both realistic and aspirational.
+                // Button configurations (keeping your existing prompts but adding error handling)
+                const buttonConfigs = [
+                    {
+                        id: 'get-career-recommendations-btn',
+                        elementId: 'career-recommendations',
+                        prompt: `Act as a senior career counselor with 15+ years of experience. Based on the user profile below, provide personalized career recommendations that are both realistic and aspirational.
 
 **User Profile:**
-- Bio: ${bio}
-- Skills: ${skills}
-- Career Goals: ${careerGoals}
-- Location: ${location}
-- Experience: ${experience}
+- Bio: \${bio}
+- Skills: \${skills}
+- Career Goals: \${careerGoals}
+- Location: \${location}
+- Experience: \${experience}
 
 **Please provide:**
 
@@ -1282,17 +1515,18 @@ For each path, include:
 - What employers really want
 
 Make it personal, actionable, and inspiring. Use their actual skills and goals in your recommendations.`
-                },
-                {
-                    id: 'get-job-prospects-btn',
-                    elementId: 'job-prospects',
-                    prompt: `You are a market research analyst specializing in employment trends. Analyze the job market for someone with this profile:
+                    },
+                    // ... (keeping other button configs the same but with proper template syntax)
+                    {
+                        id: 'get-job-prospects-btn',
+                        elementId: 'job-prospects',
+                        prompt: `You are a market research analyst specializing in employment trends. Analyze the job market for someone with this profile:
 
 **User Profile:**
-- Skills: ${skills}
-- Career Goals: ${careerGoals}
-- Location: ${location}
-- Experience Level: ${experience}
+- Skills: \${skills}
+- Career Goals: \${careerGoals}
+- Location: \${location}
+- Experience Level: \${experience}
 
 **Provide a comprehensive market analysis:**
 
@@ -1321,17 +1555,17 @@ Make it personal, actionable, and inspiring. Use their actual skills and goals i
 - Timing recommendations for job searching
 
 Be specific with data-driven insights and actionable market intelligence.`
-                },
-                {
-                    id: 'assess-skills-btn',
-                    elementId: 'skill-assessment',
-                    prompt: `You are a professional skills assessor and career coach. Conduct a thorough skills audit for this professional:
+                    },
+                    {
+                        id: 'assess-skills-btn',
+                        elementId: 'skill-assessment',
+                        prompt: `You are a professional skills assessor and career coach. Conduct a thorough skills audit for this professional:
 
 **Profile to Assess:**
-- Background: ${bio}
-- Current Skills: ${skills}
-- Career Aspirations: ${careerGoals}
-- Experience: ${experience}
+- Background: \${bio}
+- Current Skills: \${skills}
+- Career Aspirations: \${careerGoals}
+- Experience: \${experience}
 
 ## 🏆 Strengths Analysis
 **Your Top Skills:**
@@ -1366,18 +1600,18 @@ Be specific with data-driven insights and actionable market intelligence.`
 - Unique combinations that set them apart
 
 Provide honest, constructive feedback with specific improvement strategies.`
-                },
-                {
-                    id: 'match-jobs-btn',
-                    elementId: 'matched-jobs',
-                    prompt: `Act as an expert recruitment consultant with access to current job market data. Match this candidate with ideal job opportunities:
+                    },
+                    {
+                        id: 'match-jobs-btn',
+                        elementId: 'matched-jobs',
+                        prompt: `Act as an expert recruitment consultant with access to current job market data. Match this candidate with ideal job opportunities:
 
 **Candidate Profile:**
-- Background: ${bio}
-- Skills: ${skills}
-- Career Goals: ${careerGoals}
-- Location: ${location}
-- Experience: ${experience}
+- Background: \${bio}
+- Skills: \${skills}
+- Career Goals: \${careerGoals}
+- Location: \${location}
+- Experience: \${experience}
 
 ## 🎯 Perfect Matches (90%+ Compatibility)
 
@@ -1413,17 +1647,17 @@ Provide honest, constructive feedback with specific improvement strategies.`
 - Referral opportunities in their network
 
 Be specific with real job titles, realistic salary ranges, and actionable search strategies.`
-                },
-                {
-                    id: 'get-learning-resources-btn',
-                    elementId: 'learning-resources',
-                    prompt: `You are a learning and development specialist. Create a comprehensive, personalized learning plan for this professional:
+                    },
+                    {
+                        id: 'get-learning-resources-btn',
+                        elementId: 'learning-resources',
+                        prompt: `You are a learning and development specialist. Create a comprehensive, personalized learning plan for this professional:
 
 **Learner Profile:**
-- Current Skills: ${skills}
-- Career Goals: ${careerGoals}
-- Professional Background: ${bio}
-- Experience Level: ${experience}
+- Current Skills: \${skills}
+- Career Goals: \${careerGoals}
+- Professional Background: \${bio}
+- Experience Level: \${experience}
 
 ## 🎯 Priority Learning Path
 
@@ -1475,18 +1709,18 @@ Be specific with real job titles, realistic salary ranges, and actionable search
 - When to reassess and adjust
 
 Focus on practical, actionable resources with clear timelines and expected outcomes.`
-                },
-                {
-                    id: 'find-networking-opportunities-btn',
-                    elementId: 'networking-opportunities',
-                    prompt: `You are a networking strategist and relationship-building expert. Create a personalized networking action plan:
+                    },
+                    {
+                        id: 'find-networking-opportunities-btn',
+                        elementId: 'networking-opportunities',
+                        prompt: `You are a networking strategist and relationship-building expert. Create a personalized networking action plan:
 
 **Professional Profile:**
-- Background: ${bio}
-- Skills & Expertise: ${skills}
-- Career Goals: ${careerGoals}
-- Location: ${location}
-- Experience: ${experience}
+- Background: \${bio}
+- Skills & Expertise: \${skills}
+- Career Goals: \${careerGoals}
+- Location: \${location}
+- Experience: \${experience}
 
 ## 🎯 Strategic Networking Goals
 - What you want to achieve through networking
@@ -1548,55 +1782,88 @@ Focus on practical, actionable resources with clear timelines and expected outco
 Include specific actions, timelines, and success metrics for each phase.
 
 Make recommendations specific to their location, industry, and career level.`
-                }
-            ];
+                    }
+                ];
 
-            buttonConfigs.forEach(config => {
-                const button = document.getElementById(config.id);
-                if (button) {
-                    console.log(`Setting up listener for ${config.id}`);
-                    button.addEventListener('click', function () {
-                        console.log(`Button clicked: ${config.id}`);
-                        callGeminiAPI(config.prompt, config.elementId, this);
-                    });
-                } else {
-                    console.warn(`Button not found: ${config.id}`);
-                }
-            });
+                buttonConfigs.forEach(config => {
+                    const button = document.getElementById(config.id);
+                    if (button) {
+                        console.log(`Setting up listener for ${config.id}`);
 
-            // Smooth scroll for sidebar links
-            document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth'
+                        // Remove existing listeners
+                        const newButton = button.cloneNode(true);
+                        button.parentNode.replaceChild(newButton, button);
+
+                        newButton.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            console.log(`Button clicked: ${config.id}`);
+
+                            // Debounce rapid clicks
+                            if (this.disabled) return;
+
+                            callGeminiAPI(config.prompt, config.elementId, this);
                         });
+                    } else {
+                        console.warn(`Button not found: ${config.id}`);
                     }
                 });
-            });
 
-            // Profile picture handling
-            const profilePictureInput = document.getElementById('profilePictureInput');
-            const profilePictureWrapper = document.querySelector('.profile-picture-wrapper');
-            const profilePicture = document.querySelector('.profile-picture');
-
-            if (profilePictureWrapper && profilePictureInput) {
-                profilePictureWrapper.addEventListener('click', () => {
-                    profilePictureInput.click();
+                // Smooth scroll for sidebar links with error handling
+                document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        try {
+                            e.preventDefault();
+                            const target = document.querySelector(this.getAttribute('href'));
+                            if (target) {
+                                target.scrollIntoView({
+                                    behavior: 'smooth'
+                                });
+                            }
+                        } catch (error) {
+                            console.error('Smooth scroll error:', error);
+                        }
+                    });
                 });
 
-                profilePictureInput.addEventListener('change', function () {
-                    const file = this.files[0];
-                    if (file && profilePicture) {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            profilePicture.src = e.target.result;
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
+                // Profile picture handling with error handling
+                const profilePictureInput = document.getElementById('profilePictureInput');
+                const profilePictureWrapper = document.querySelector('.profile-picture-wrapper');
+                const profilePicture = document.querySelector('.profile-picture');
+
+                if (profilePictureWrapper && profilePictureInput) {
+                    profilePictureWrapper.addEventListener('click', () => {
+                        try {
+                            profilePictureInput.click();
+                        } catch (error) {
+                            console.error('Profile picture click error:', error);
+                        }
+                    });
+
+                    profilePictureInput.addEventListener('change', function () {
+                        try {
+                            const file = this.files[0];
+                            if (file && profilePicture) {
+                                const reader = new FileReader();
+                                reader.onload = function (e) {
+                                    try {
+                                        profilePicture.src = e.target.result;
+                                    } catch (error) {
+                                        console.error('FileReader onload error:', error);
+                                    }
+                                };
+                                reader.onerror = function () {
+                                    console.error('FileReader error');
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        } catch (error) {
+                            console.error('Profile picture change error:', error);
+                        }
+                    });
+                }
+
+            } catch (error) {
+                console.error('setupButtonListeners error:', error);
             }
         }
 
@@ -1773,7 +2040,7 @@ Example:
                 resetButtonText(button);
             }
         }
-</script>
+    </script>
 
 
 </body>
