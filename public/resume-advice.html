@@ -914,7 +914,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script>
+   <script>
+        // Resume content storage in memory with fallback
+        window.resumeContent = window.resumeContent || {
+            resumeAdvice: null
+        };
+
         // Utilities
         // Enhanced utilities
         function setLoadingState(btn, loading) {
@@ -948,6 +953,7 @@
                 console.error('setLoadingState error:', error);
             }
         }
+
         function formatText(text) {
             if (!text || typeof text !== 'string') return '';
 
@@ -984,6 +990,48 @@
             }
         }
 
+        // Load saved resume advice on page load
+        function loadSavedResumeAdvice() {
+            try {
+                console.log('Loading saved resume advice...');
+                
+                let savedAdvice = null;
+
+                // Check window object first
+                if (window.resumeContent && window.resumeContent.resumeAdvice) {
+                    savedAdvice = window.resumeContent.resumeAdvice;
+                }
+                // Then check sessionStorage
+                else if (typeof (Storage) !== "undefined") {
+                    savedAdvice = sessionStorage.getItem('resumeAdvice');
+                }
+
+                const element = document.getElementById('resume-advice');
+                if (savedAdvice && element) {
+                    element.innerHTML = savedAdvice;
+                    console.log('Loaded saved resume advice');
+                }
+            } catch (error) {
+                console.error('loadSavedResumeAdvice error:', error);
+            }
+        }
+
+        // Save resume advice to storage
+        function saveResumeAdvice(content) {
+            try {
+                // Save to window object
+                window.resumeContent.resumeAdvice = content;
+                
+                // Save to sessionStorage
+                if (typeof (Storage) !== "undefined") {
+                    sessionStorage.setItem('resumeAdvice', content);
+                }
+                
+                console.log('Resume advice saved to storage');
+            } catch (error) {
+                console.error('saveResumeAdvice error:', error);
+            }
+        }
 
         async function callGemini(prompt, elementId, btn, retryCount = 0) {
             const MAX_RETRIES = 3;
@@ -1049,6 +1097,12 @@
 
                 if (element) {
                     element.innerHTML = formattedText;
+                    
+                    // Save the advice to storage
+                    if (elementId === 'resume-advice') {
+                        saveResumeAdvice(formattedText);
+                    }
+                    
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
                     // Add success animation
@@ -1091,6 +1145,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+            // Load saved resume advice on page load
+            loadSavedResumeAdvice();
+
             const uploadArea = document.getElementById('upload-area');
             const fileInput = document.getElementById('resume');
 
@@ -1196,6 +1253,22 @@
                 skills: 'N/A',
                 careerGoals: 'N/A'
             };
+
+            // Try to get profile from sessionStorage if available
+            if (typeof (Storage) !== "undefined") {
+                try {
+                    const storedProfile = sessionStorage.getItem('userProfile');
+                    if (storedProfile) {
+                        const parsedProfile = JSON.parse(storedProfile);
+                        profile.bio = parsedProfile.bio || sessionStorage.getItem('bio') || 'N/A';
+                        profile.skills = parsedProfile.skills || sessionStorage.getItem('skills') || 'N/A';
+                        profile.careerGoals = parsedProfile.careerGoals || sessionStorage.getItem('careerGoals') || 'N/A';
+                    }
+                } catch (e) {
+                    console.warn('Error loading profile:', e);
+                }
+            }
+
             const bio = profile.bio || 'N/A';
             const skills = profile.skills || 'N/A';
             const goals = profile.careerGoals || 'N/A';
@@ -1235,7 +1308,7 @@ Provide detailed suggestions on structure, content, formatting, and missing sect
             await callGemini(prompt, 'resume-advice', btn);
         });
 
-    </script>
+</script>
 
 </body>
 
