@@ -1,7 +1,6 @@
 import WebServer from '@blockless/sdk-ts/dist/lib/web';
 
 const server = new WebServer();
-server.setStatics(require("./bls.assets.json"));
 
 // Serve static files (optional)
 server.statics('public', '/');
