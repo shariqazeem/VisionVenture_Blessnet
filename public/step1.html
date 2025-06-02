@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-   <style>
+    <style>
         :root {
             --primary-bg: #0d1117;
             --card-bg: #161b22;
@@ -77,10 +77,13 @@
         }
 
         @keyframes pulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
                 opacity: 1;
             }
+
             50% {
                 transform: scale(1.2);
                 opacity: 0.8;
@@ -152,6 +155,7 @@
                 opacity: 0;
                 transform: translateX(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -336,6 +340,7 @@
                 opacity: 0;
                 transform: scale(0.8);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -443,6 +448,7 @@
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
@@ -575,6 +581,166 @@
         .btn,
         .add-skill-btn {
             transition: all 0.2s ease;
+        }
+
+        /* Location autocomplete dropdown styling */
+        .ui-autocomplete {
+            max-height: 200px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .ui-autocomplete .ui-menu-item {
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+
+        .ui-autocomplete .ui-menu-item-wrapper {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f3f4;
+            transition: background-color 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .ui-autocomplete .ui-menu-item-wrapper:hover,
+        .ui-autocomplete .ui-menu-item-wrapper.ui-state-active {
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+
+        .ui-autocomplete .ui-menu-item:last-child .ui-menu-item-wrapper {
+            border-bottom: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .ui-autocomplete .ui-menu-item:first-child .ui-menu-item-wrapper {
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Remove default jQuery UI styling */
+        .ui-helper-hidden-accessible {
+            display: none;
+        }
+
+        #location.ui-autocomplete-input {
+            border-radius: 8px 8px 0 0;
+        }
+
+        #location.ui-autocomplete-input.ui-corner-top {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-color: transparent;
+        }
+
+        /* Skills suggestions dropdown styling */
+        .skills-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .skills-container {
+            position: relative;
+        }
+
+        .skill-suggestion {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid #f1f3f4;
+            transition: background-color 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .skill-suggestion:hover {
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+
+        .skill-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        .skill-suggestion.custom-skill {
+            background-color: #f0f9ff;
+            color: #0369a1;
+            font-weight: 500;
+        }
+
+        .skill-suggestion.custom-skill:hover {
+            background-color: #e0f2fe;
+        }
+
+        .skill-suggestion .skill-type {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: normal;
+        }
+
+        /* Input styling when dropdown is open */
+        .skills-container .form-control:focus+.skills-suggestions {
+            display: block;
+        }
+
+        #skillsInput:focus {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .skill-suggestion {
+                padding: 16px;
+                font-size: 16px;
+                /* Prevents zoom on iOS */
+            }
+
+            #skillsInput {
+                font-size: 16px;
+                /* Prevents zoom on iOS */
+            }
+
+            .skills-suggestions {
+                max-height: 150px;
+            }
+        }
+
+        /* Add a subtle animation */
+        .skills-suggestions {
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -758,10 +924,17 @@
             $("#location").autocomplete({
                 source: countries,
                 minLength: 1,
+                delay: 150,
                 select: function (event, ui) {
                     validateField('location', ui.item.value);
+                },
+                open: function () {
+                    $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+                },
+                close: function () {
+                    $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
                 }
-            });
+            }).autocomplete("widget").addClass("location-autocomplete");
         }
 
         // Skills input functionality
@@ -770,17 +943,38 @@
             const suggestionsList = document.getElementById('skillsSuggestions');
 
             skillsInput.addEventListener('input', function () {
-                const value = this.value.toLowerCase();
+                const value = this.value.trim();
                 if (value.length > 0) {
                     const matches = skillSuggestions.filter(skill =>
-                        skill.toLowerCase().includes(value) &&
+                        skill.toLowerCase().includes(value.toLowerCase()) &&
                         !selectedSkills.includes(skill)
                     );
 
+                    let suggestionsHTML = '';
+
+                    // Add matching existing skills
                     if (matches.length > 0) {
-                        suggestionsList.innerHTML = matches.slice(0, 5).map(skill =>
-                            `<div class="skill-suggestion" onclick="addSkill('${skill}')">${skill}</div>`
+                        suggestionsHTML += matches.slice(0, 4).map(skill =>
+                            `<div class="skill-suggestion" onclick="addSkill('${skill}')">
+                        <span>${skill}</span>
+                        <span class="skill-type">Suggested</span>
+                    </div>`
                         ).join('');
+                    }
+
+                    // Always add the typed value as a custom option if it's not already selected
+                    if (!selectedSkills.includes(value) && value.length >= 2) {
+                        const isExactMatch = matches.some(skill => skill.toLowerCase() === value.toLowerCase());
+                        if (!isExactMatch) {
+                            suggestionsHTML += `<div class="skill-suggestion custom-skill" onclick="addSkill('${value}')">
+                        <span>Add "${value}"</span>
+                        <span class="skill-type">Custom</span>
+                    </div>`;
+                        }
+                    }
+
+                    if (suggestionsHTML) {
+                        suggestionsList.innerHTML = suggestionsHTML;
                         suggestionsList.style.display = 'block';
                     } else {
                         suggestionsList.style.display = 'none';
@@ -791,14 +985,34 @@
             });
 
             skillsInput.addEventListener('keydown', function (e) {
+                const suggestionsList = document.getElementById('skillsSuggestions');
+                const suggestions = suggestionsList.querySelectorAll('.skill-suggestion');
+
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     const value = this.value.trim();
-                    if (value) {
+                    if (value.length >= 2) {
                         addSkill(value);
                         this.value = '';
                         suggestionsList.style.display = 'none';
                     }
+                } else if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (suggestions.length > 0) {
+                        const firstSuggestion = suggestions[0];
+                        firstSuggestion.click();
+                    }
+                } else if (e.key === 'Escape') {
+                    suggestionsList.style.display = 'none';
+                    this.blur();
+                }
+            });
+
+            // Enhanced focus handling
+            skillsInput.addEventListener('focus', function () {
+                if (this.value.trim().length > 0) {
+                    // Trigger input event to show suggestions
+                    this.dispatchEvent(new Event('input'));
                 }
             });
 
@@ -808,14 +1022,35 @@
                     suggestionsList.style.display = 'none';
                 }
             });
+
+            // Touch device support - prevent zoom on focus
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                skillsInput.addEventListener('focus', function () {
+                    this.style.fontSize = '16px';
+                });
+
+                skillsInput.addEventListener('blur', function () {
+                    this.style.fontSize = '';
+                });
+            }
         }
 
         // Add skill tag
         function addSkill(skill) {
-            if (!selectedSkills.includes(skill)) {
-                selectedSkills.push(skill);
+            const trimmedSkill = skill.trim();
+            if (trimmedSkill.length >= 2 && !selectedSkills.includes(trimmedSkill)) {
+                selectedSkills.push(trimmedSkill);
                 renderSkillTags();
                 validateField('skills', selectedSkills.join(', '));
+
+                // Clear input and hide suggestions
+                document.getElementById('skillsInput').value = '';
+                document.getElementById('skillsSuggestions').style.display = 'none';
+
+                // Focus back to input for easy addition of more skills
+                setTimeout(() => {
+                    document.getElementById('skillsInput').focus();
+                }, 100);
             }
         }
 
